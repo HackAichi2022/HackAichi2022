@@ -15,13 +15,13 @@
   },
   "emulators": {
     "database": {
-      "port": 9000
+      "port": 9010
     },
     "hosting": {
       "port": 50000
     },
     "storage": {
-      "port": 9199
+      "port": 9129
     },
     "ui": {
       "enabled": true
