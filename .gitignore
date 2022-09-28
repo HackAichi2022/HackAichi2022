@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # Firebase Emulators
-/data/storage_export
+/data/storage_export/blobs/
+/data/storage_export/metadata/
