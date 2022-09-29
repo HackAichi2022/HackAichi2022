@@ -21,33 +21,61 @@
     
 </head>
 <body>
-動画ファイル，pdfファイルの送信
+動画ファイル，pdfファイルの送信<br>
 	<h1>Hello HTML!!</h1>
-    <form method="post" enctype="multipart/form-data">
     <input type="file" id="send" multiple required>
-    <button type="submit">送信する</button>
-    </form>
-    <script>
-        window.onload = () => {
+    <!-- <button type="submit">送信する</button> -->
+    
+    <!-- <script>
+        // window.onload = () => {
             let fileInput = document.getElementById('send');
+            let fileReader = new FileReader();
+            fileInput.onchange = () => {
+                let file = fileInput.files[0];
+                console.log(file.name);
+                console.log(file.size);
+                console.log(file.type);
+                var ref = firebase.storage().ref().child(file.name);
+                ref.put(file).then((snapshot) => {
+                    console.log('Uploaded a blob or file!');
+                });
+            };
+
+        // }
+        
+    </script> -->
+
+    <script>
+    function OnButtonClick(){
+        // alert("test");
+        let fileInput = document.getElementById('send');
         let fileReader = new FileReader();
-        fileInput.onchange = () => {
-        let file = fileInput.files[0];
-        console.log(file.name);
-        console.log(file.size);
-        console.log(file.type);
-        fileReader.readAsText(file);
-        var ref = firebase.storage().ref().child(file.name);
-        ref.put(file).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-        });
-        };
-
-        fileReader.onload = () => console.log(fileReader.result);
-
         
+        for(let i=0; i<fileInput.files.length; i++){
+            let file = fileInput.files[i];
+            console.log(fileInput.files.length);
+            console.log(file.name);
+            console.log(file.size);
+            console.log(file.type);
+            const blob = new Blob([file], {type: file.type})
+            var metadata = {
+                size: file.size,
+                contentType: file.type,
+                };
+            var ref = firebase.storage().ref().child(file.name);
+            ref.put(blob).then((snapshot) => {
+            // ref.put(file.,metadata).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+                alert("次のファイルをアップロードしました\n" + file.name);
+            }).catch((error) =>{
+                console.error(error)
+            });
+
         }
-        
+    }
     </script>
+    
+    <button onclick="OnButtonClick()">送信する</button>
+
 </body>
 </html>
