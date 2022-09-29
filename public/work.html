@@ -1,69 +1,47 @@
+<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    
-</head>
-<body>
-動画ファイル，pdfファイルの送信<br>
-	<h1>Hello HTML!!</h1>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+      <!-- firebase.js -->
+      <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
+      <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
+      <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+      <!-- jquery.js -->
+      <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+   </head>
+   <body>
+    <h1>作業マニュアルページ</h1>
+    動画ファイル，pdfファイルの送信<br>
     <input type="file" id="send" multiple required>
-    <!-- <button type="submit">送信する</button> -->
-    
-    <!-- <script>
-        // window.onload = () => {
-            let fileInput = document.getElementById('send');
-            let fileReader = new FileReader();
-            fileInput.onchange = () => {
-                let file = fileInput.files[0];
-                console.log(file.name);
-                console.log(file.size);
-                console.log(file.type);
-                var ref = firebase.storage().ref().child(file.name);
-                ref.put(file).then((snapshot) => {
-                    console.log('Uploaded a blob or file!');
-                });
-            };
-
-        // }
-        
-    </script> -->
-
     <script>
+
     function OnButtonClick(){
+        
         // alert("test");
         let fileInput = document.getElementById('send');
         let fileReader = new FileReader();
         
         for(let i=0; i<fileInput.files.length; i++){
+            
             let file = fileInput.files[i];
             console.log(fileInput.files.length);
             console.log(file.name);
             console.log(file.size);
             console.log(file.type);
-            const blob = new Blob([file], {type: file.type})
-            var metadata = {
-                size: file.size,
-                contentType: file.type,
-                };
             var ref = firebase.storage().ref().child(file.name);
-            ref.put(blob).then((snapshot) => {
+            ref.put(file).then((snapshot) => {
             // ref.put(file.,metadata).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
                 alert("次のファイルをアップロードしました\n" + file.name);
@@ -75,7 +53,24 @@
     }
     </script>
     
-    <button onclick="OnButtonClick()">送信する</button>
+    <button onclick="OnButtonClick()">送信する</button><br><br>
 
-</body>
+      <video id="sample1" controls></video>
+
+      <script>
+         window.onload  = function() {   
+            const storage = firebase.storage();
+            const ref = storage.ref('./short.mp4'); 
+
+            ref.getDownloadURL().then((url) => {          
+               console.log(url)
+               var element = document.getElementById('sample1');
+               element.src = url;
+            });
+         }
+
+      </script>
+   </body>
 </html>
+
+

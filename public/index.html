@@ -27,7 +27,7 @@
       <script>
          window.onload  = function() {   
             const storage = firebase.storage();
-            const ref = storage.ref('./sample1.mp4'); 
+            const ref = storage.ref('./short.mp4'); 
 
             ref.getDownloadURL().then((url) => {          
                console.log(url)
