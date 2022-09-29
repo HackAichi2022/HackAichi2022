@@ -9,6 +9,13 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.10.0/firebase-database-compat.js"
+    ></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="js/database.js"></script>
     <title>Project</title>
   </head>
   <body>
@@ -21,14 +28,42 @@
         </section>
       </div>
     </header>
-    <main class="mdc-top-app-bar--fixed-adjust">App content</main>
+    <main class="mdc-top-app-bar--fixed-adjust">
+      <ul id="work-list" class="mdc-list"></ul>
+    </main>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', async () => {
+        // プロジェクト名はクエリパラメータ経由で受け取る
         const searchParams = new URLSearchParams(location.search)
         if (searchParams.has('projectName')) {
-          console.log(searchParams.get('projectName'))
+          // ヘッダー部分はプロジェクト名に合わせる
+          const projectName = searchParams.get('projectName')
           const projectNameElem = document.getElementById('project-name')
-          projectNameElem.textContent = searchParams.get('projectName')
+          projectNameElem.textContent = projectName
+
+          // 作業一覧はリストとして表示
+          const workListElem = document.getElementById('work-list')
+          getChildKeys(projectName).then((keys) => {
+            if (keys.length === 0) {
+              workListElem.insertAdjacentHTML(
+                'beforeend',
+                `<li class="mdc-list-item">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">登録されている作業はありません</span>
+                </li>`
+              )
+            } else {
+              keys.forEach((key) => {
+                workListElem.insertAdjacentHTML(
+                  'beforeend',
+                  `<li class="mdc-list-item">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">${key}</span>
+                  </li>`
+                )
+              })
+            }
+          })
         } else {
           console.log('query not found')
         }
