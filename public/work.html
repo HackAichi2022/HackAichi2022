@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,20 @@
 
       <!-- jquery.js -->
       <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+      <style>
+         #canvas_container {
+             /** pdf表示画面のCSS この辺りはカスタマイズしてください。 */
+             height: 100%;
+             overflow: auto;
+             background: #333;
+             text-align: center;
+             border: solid 3px;
+         }
+     </style>
+     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+     
+   
    </head>
    <body>
     <h1>作業マニュアルページ</h1>
@@ -43,33 +57,132 @@
             var ref = firebase.storage().ref().child(file.name);
             ref.put(file).then((snapshot) => {
             // ref.put(file.,metadata).then((snapshot) => {
-                console.log('Uploaded a blob or file!');
-                alert("次のファイルをアップロードしました\n" + file.name);
+               console.log('Uploaded a blob or file!');
+               alert("次のファイルをアップロードしました\n" + file.name);
+               
             }).catch((error) =>{
                 console.error(error)
             });
 
-        }
+         }
+         // window.location.reload();
     }
     </script>
     
     <button onclick="OnButtonClick()">送信する</button><br><br>
 
-      <video id="sample1" controls></video>
+      <video id="video" controls></video>
 
       <script>
-         window.onload  = function() {   
+         window.addEventListener('load', function(){   
             const storage = firebase.storage();
             const ref = storage.ref('./short.mp4'); 
 
             ref.getDownloadURL().then((url) => {          
                console.log(url)
-               var element = document.getElementById('sample1');
+               var element = document.getElementById('video');
                element.src = url;
             });
-         }
-
+         });
       </script>
+
+<div id="pdf_viewer">
+   <div id="canvas_container">
+       <canvas id="pdf_renderer"></canvas>
+   </div>
+   <div id="navigation_controls">
+       <button id="go_previous">Previous</button>
+       <button id="go_next">Next</button>
+       <button id="zoom_in">Zoom In</button>
+       <button id="zoom_out">Zoom Out</button>
+   </div>
+</div>
+<script>
+    window.addEventListener('load', function(){ 
+    const storage = firebase.storage();
+    const ref = storage.ref('./manual.pdf');
+    // var starsRef = storageRef.child('images/stars.jpg');
+
+    // Get the download URL
+    ref.getDownloadURL()
+    .then((url) => {
+    // PDF.js にアクセスするためのショートカット
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    // PDF.jsを使用するために「workerSrc」プロパティを指定する必要があるため指定
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    var state = {
+        pdf: null,
+        // 表示ページ
+        currentPage: 1,
+        // 倍率 1.0は1倍
+        zoom: 1.0
+    }
+   
+   // ボタンの有効・無効の状態
+   const button_pre = document.getElementById("go_previous");
+    const button_next = document.getElementById("go_next");
+    button_pre.disabled = true
+    // PDFの読み込み
+    pdfjsLib.getDocument(url).promise.then((pdf) => {
+        state.pdf = pdf;
+        render();
+    });
+    // PDFをレンダリングするファンクション
+    function render() {
+        state.pdf.getPage(state.currentPage).then(function(page) {
+            var canvas = document.getElementById("pdf_renderer");
+            var ctx = canvas.getContext('2d');
+            // 倍率を指定
+            var viewport = page.getViewport({scale: state.zoom});
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            // レンダリング
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+        });
+    }
+   // 前のPDFのページを表示
+   document.getElementById('go_previous')
+    .addEventListener('click', (e) => {
+        console.log(state.currentPage);
+        state.currentPage -= 1;
+        if (state.pdf == null || state.currentPage == 1){
+            button_pre.disabled = true
+           }
+        button_next.disabled = false
+        render();
+    });
+    // 次のPDFページを表示
+    document.getElementById('go_next')
+    .addEventListener('click', (e) => {
+        console.log(state.currentPage);
+        state.currentPage += 1;
+        if (state.pdf == null || state.currentPage == state.pdf._pdfInfo.numPages) {
+        button_next.disabled = true
+        }
+        button_pre.disabled = false
+        render();
+    });
+    // PDFのズームイン（拡大）
+    document.getElementById('zoom_in').addEventListener('click', (e) => {
+        if(state.pdf == null) return;
+        // + 0.5倍
+        state.zoom += 0.5;
+        render();
+    });
+     // PDFのズームアウト（拡小）
+    document.getElementById('zoom_out').addEventListener('click', (e) => {
+        if(state.pdf == null) return;
+        // - 0.5倍
+        state.zoom -= 0.5;
+        render();
+    });
+
+});
+    });
+</script>
    </body>
 </html>
 
