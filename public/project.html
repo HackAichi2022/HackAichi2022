@@ -34,67 +34,26 @@
     </header>
     <main class="mdc-top-app-bar--fixed-adjust">
       <ul id="work-list" class="mdc-list"></ul>
-      <button id="dialog-open-button" class="mdc-button mdc-button--raised">
-        <span class="mdc-button__label">作業の追加</span>
-      </button>
-      <div class="mdc-dialog mdc-dialog--fullscreen">
-        <div class="mdc-dialog__container">
-          <div
-            class="mdc-dialog__surface"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="dialog-title"
-            aria-describedby="dialog-content"
-          >
-            <div class="mdc-dialog__header">
-              <h2 class="mdc-dialog__title" id="dialog-title">作業の追加</h2>
-              <button
-                class="mdc-icon-button material-icons mdc-dialog__close"
-                data-mdc-dialog-action="close"
-              >
-                close
-              </button>
-            </div>
-            <div class="mdc-dialog__content" id="dialog-content">
-              <label class="mdc-text-field mdc-text-field--outlined">
-                <span class="mdc-notched-outline mdc-notched-outline--upgraded">
-                  <span class="mdc-notched-outline__leading"></span>
-                  <span class="mdc-notched-outline__notch">
-                    <span class="mdc-floating-label" id="work-name-label"
-                      >作業名</span
-                    >
-                  </span>
-                  <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <input
-                  id="work-name"
-                  type="text"
-                  class="mdc-text-field__input"
-                  aria-labelledby="work-name-label"
-                />
-              </label>
-            </div>
-            <div class="mdc-dialog__actions">
-              <button
-                type="button"
-                class="mdc-button mdc-dialog__button"
-                data-mdc-dialog-action="close"
-              >
-                <div class="mdc-button__ripple"></div>
-                <span class="mdc-button__label">キャンセル</span>
-              </button>
-              <button
-                type="button"
-                class="mdc-button mdc-dialog__button"
-                data-mdc-dialog-action="ok"
-              >
-                <div class="mdc-button__ripple"></div>
-                <span class="mdc-button__label">登録</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="mdc-dialog__scrim"></div>
+
+      <div>
+        <label
+          class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label"
+        >
+          <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch"> </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input
+            id="work-name"
+            type="text"
+            class="mdc-text-field__input"
+            aria-label="Label"
+          />
+        </label>
+        <button id="add-work-button" class="mdc-button mdc-button--raised">
+          <span class="mdc-button__label">追加</span>
+        </button>
       </div>
     </main>
     <script>
@@ -133,17 +92,8 @@
         } else {
           console.log('query not found')
         }
-        const MDCDialog = mdc.dialog.MDCDialog
-        const dialog = new MDCDialog(document.querySelector('.mdc-dialog'))
-        const dialogOpenButton = document.getElementById('dialog-open-button')
-        dialogOpenButton.addEventListener('click', () => {
-          if (!dialog.isOpen) {
-            dialog.open()
-          }
-        })
-
-        dialog.listen('MDCDialog:closing', (action) => {
-          const actionDetail = action.detail.action
+        const addWorkButton = document.getElementById('add-work-button')
+        addWorkButton.addEventListener('click', () => {
           const workName = document.getElementById('work-name').value
           console.log(workName)
           const data = {
