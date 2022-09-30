@@ -9,3 +9,9 @@ async function getChildKeys(path) {
 
   return keys
 }
+
+function updateData(path, data) {
+  const ref = firebase.database().ref(path)
+
+  return ref.update(data)
+}
