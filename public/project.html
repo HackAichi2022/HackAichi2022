@@ -73,8 +73,10 @@
               workListElem.insertAdjacentHTML(
                 'beforeend',
                 `<li class="mdc-list-item">
-                  <span class="mdc-list-item__ripple"></span>
-                  <span class="mdc-list-item__text">登録されている作業はありません</span>
+                  <button class=mdc-button>
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__text">登録されている作業はありません</span>
+                  </button>
                 </li>`
               )
             } else {
@@ -82,8 +84,10 @@
                 workListElem.insertAdjacentHTML(
                   'beforeend',
                   `<li class="mdc-list-item">
-                    <span class="mdc-list-item__ripple"></span>
-                    <span class="mdc-list-item__text">${key}</span>
+                    <button class=mdc-button onclick="location.href='http://localhost:50000/work.html?workName=${key}'">
+                      <span class="mdc-button__ripple"></span>
+                      <span class="mdc-button__text">${key}</span>
+                    </button>
                   </li>`
                 )
               })
