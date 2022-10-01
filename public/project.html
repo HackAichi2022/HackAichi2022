@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -69,7 +68,7 @@
 
           // 作業一覧はリストとして表示
           const workListElem = document.getElementById('work-list')
-          getChildKeys(projectName).then((keys) => {
+          getChildKeys(`${projectName}/workList`).then((keys) => {
             if (keys.length === 0) {
               workListElem.insertAdjacentHTML(
                 'beforeend',
@@ -110,11 +109,10 @@
           const searchParams = new URLSearchParams(location.search)
           if (searchParams.has('projectName')) {
             const projectName = searchParams.get('projectName')
-            updateData(`${projectName}`, data)
+            updateData(`${projectName}/workList`, data)
           }
         })
       })
     </script>
   </body>
 </html>
-
