@@ -12,7 +12,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"
+    ></script>
     <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
     <script
       defer
@@ -20,7 +23,8 @@
     ></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script defer src="js/database.js"></script>
-    <script src="js/utility.js"></script>
+    <script defer src="js/utility.js"></script>
+    <script defer src="js/project.js"></script>
     <title>Project</title>
   </head>
   <body>
@@ -57,59 +61,5 @@
         </button>
       </div>
     </main>
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        // プロジェクト名はクエリパラメータ経由で受け取る
-        const projectName = getQueryParam('projectName')
-        if (projectName) {
-          // ヘッダー部分はプロジェクト名に合わせる
-          const projectNameElem = document.getElementById('project-name')
-          projectNameElem.textContent = projectName
-
-          // 作業一覧はリストとして表示
-          const workListElem = document.getElementById('work-list')
-          getChildKeys(`${projectName}/workList`).then((keys) => {
-            if (keys.length === 0) {
-              workListElem.insertAdjacentHTML(
-                'beforeend',
-                `<li class="mdc-list-item">
-                  <button class=mdc-button>
-                    <span class="mdc-button__ripple"></span>
-                    <span class="mdc-button__text">登録されている作業はありません</span>
-                  </button>
-                </li>`
-              )
-            } else {
-              keys.forEach((key) => {
-                workListElem.insertAdjacentHTML(
-                  'beforeend',
-                  `<li class="mdc-list-item">
-                    <button class=mdc-button onclick="location.href='http://localhost:50000/work.html?workName=${key}'">
-                      <span class="mdc-button__ripple"></span>
-                      <span class="mdc-button__text">${key}</span>
-                    </button>
-                  </li>`
-                )
-              })
-            }
-          })
-        }
-
-        const addWorkButton = document.getElementById('add-work-button')
-        addWorkButton.addEventListener('click', () => {
-          const workName = document.getElementById('work-name').value
-          const data = {
-            [workName]: {
-              material: '',
-              movie: '',
-            },
-          }
-
-          if (projectName) {
-            updateData(`${projectName}/workList`, data)
-          }
-        })
-      })
-    </script>
   </body>
 </html>
