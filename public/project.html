@@ -20,6 +20,7 @@
     ></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script defer src="js/database.js"></script>
+    <script src="js/utility.js"></script>
     <title>Project</title>
   </head>
   <body>
@@ -59,10 +60,9 @@
     <script>
       document.addEventListener('DOMContentLoaded', async () => {
         // プロジェクト名はクエリパラメータ経由で受け取る
-        const searchParams = new URLSearchParams(location.search)
-        if (searchParams.has('projectName')) {
+        const projectName = getQueryParam('projectName')
+        if (projectName) {
           // ヘッダー部分はプロジェクト名に合わせる
-          const projectName = searchParams.get('projectName')
           const projectNameElem = document.getElementById('project-name')
           projectNameElem.textContent = projectName
 
@@ -93,22 +93,19 @@
               })
             }
           })
-        } else {
-          console.log('query not found')
         }
+
         const addWorkButton = document.getElementById('add-work-button')
         addWorkButton.addEventListener('click', () => {
           const workName = document.getElementById('work-name').value
-          console.log(workName)
           const data = {
             [workName]: {
               material: '',
               movie: '',
             },
           }
-          const searchParams = new URLSearchParams(location.search)
-          if (searchParams.has('projectName')) {
-            const projectName = searchParams.get('projectName')
+
+          if (projectName) {
             updateData(`${projectName}/workList`, data)
           }
         })
