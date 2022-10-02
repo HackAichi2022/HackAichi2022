@@ -46,9 +46,10 @@
     </script> -->
 
     <script>
+    let projectname = "pj1"
+    let workname = "work1"
 
     function OnButtonClick(){
-        
         // alert("test");
         let fileInput = document.getElementById('send');
         let fileReader = new FileReader();
@@ -60,7 +61,8 @@
             console.log(file.name);
             console.log(file.size);
             console.log(file.type);
-            var ref = firebase.storage().ref().child(file.name);
+            var ref_path = projectname + "/" + workname + "/" + file.name
+            var ref = firebase.storage().ref().child(ref_path);
             ref.put(file).then((snapshot) => {
             // ref.put(file.,metadata).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
