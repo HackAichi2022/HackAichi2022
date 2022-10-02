@@ -34,6 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         workListContent
       )
     })
+
+    // タグ一覧を表示
+    const tagListElem = document.getElementById('tag-list')
+    let tagListContent = ''
+    getChildData(`${projectName}/tag`).then((data) => {
+      data.forEach((tag) => {
+        tagListContent += `${tag},`
+      })
+      tagListElem.textContent = tagListContent
+    })
   }
 
 })

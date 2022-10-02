@@ -10,6 +10,19 @@ async function getChildKeys(path) {
   return keys
 }
 
+async function getChildData(path) {
+  let data = {}
+  const ref = firebase.database().ref(path)
+
+  const snapshot = await ref.get()
+  if (snapshot.exists()) {
+    console.log(snapshot)
+    data = snapshot.val()
+  }
+
+  return data
+}
+
 async function updateData(path, data) {
   const keys = Object.keys(data)
   // 今のところkeysが複数になることは想定していない（forEachは1回しか実行されない想定）
