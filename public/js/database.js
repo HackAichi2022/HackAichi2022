@@ -16,7 +16,6 @@ async function getChildData(path) {
 
   const snapshot = await ref.get()
   if (snapshot.exists()) {
-    console.log(snapshot)
     data = snapshot.val()
   }
 
