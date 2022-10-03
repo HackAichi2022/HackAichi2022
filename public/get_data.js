@@ -22,6 +22,8 @@ call_project_name();
 console.log(s_name);
 }
 */
+
+/*DBを参照してボタンを製作*/
 async function getChildKeys(path) {
   let keys = []
   const ref = firebase.database().ref(path)
@@ -43,10 +45,13 @@ async function getChildKeys(path) {
   keys.forEach((key) => {
     workListElem.insertAdjacentHTML(
       'beforeend',
+      /*
       `<button class="mdc-button" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'">
         <span class="mdc-button__ripple"></span>
         <span class="mdc-button__label">${key}</span>
-      </button>`
+      </button>`*/
+      `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'">${key}</a>
+      <p><br></p>`
     )
   })
 
@@ -59,6 +64,7 @@ window.onload = () => {
   let key_l = getChildKeys(path);
 }
 
+/*プロジェクトの作成*/
 document.getElementById("make_project_button").onclick = async function() {
   const ref = firebase.database().ref(path);
   const snapshot = await ref.get()
@@ -74,5 +80,6 @@ document.getElementById("make_project_button").onclick = async function() {
   }else{
     const data = { [Project_name]:{tag:[Project_name]} }
     ref.update(data);
+    window.location.reload();
   }
 }

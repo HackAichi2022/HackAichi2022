@@ -17,20 +17,14 @@
   <header>
     <!-- ヘッダーはここに記述 -->
   </header>
-  <h1>KotuKotu DB!</h1>
-  <p style="text-align:center">プロジェクトページを新規作成する場合はプロジェクト名を入力して作成ボタンをクリックしてください！<br>
-    既存プロジェクトページの参照はそのプロジェクトのページをクリックしてください！<br>
-  
-    <!-- <button class="mdc-button">button</button> -->
+  <h1><span>Kotu Kotu</span><span>Data Base!</span></h1>
 
-    |<br>
-    |<br>
-    新規作成はこちら！<br>
-    |<br>
-    |<br>
-    V
-  </p>
-  <style>
+  <hr class="hr1">
+
+  <p id="p1" style="text-align:center">プロジェクトページを新規作成する場合はプロジェクト名を入力して作成ボタンをクリックしてください！<br></p>
+
+
+  <!--<style>
     .button{
         width: fit-content;
         margin: auto;
@@ -48,12 +42,29 @@
       type="button"
       id="make_project_button"
       >作成！</button>
+  </form>-->
+
+  <div class="bg_pattern Paper_v2"></div>
+<div class="section">
+</div>
+
+  <form class="make_p">
+    <h2>Make new project!</h2>
+      <div>
+          <label>New project name</label>
+          <input type="text" class="text" id="Pname" size="45" value="" required/>
+      </div>
+     <div>
+      <input type="button" class="submit" id="make_project_button" value="create!" />
+    </div>
   </form>
 
-  <p style="text-align:center">既存のプロジェクト</p>
+  <p id="p2" >
+    既存プロジェクトページの参照はそのプロジェクトのページをクリックしてください！<br></p>
   <!-- <ul id="list">
   </ul>-->
-  <div id="make_pro"></div>
+
+  <div id="make_pro" class="make_pro_button"></div>
 
   <script src="get_data.js"></script>
 </body>
