@@ -8,3 +8,12 @@ function getQueryParam(paramName) {
     return null
   }
 }
+
+function queryElements(elem, query) {
+  let elems = null
+  if (elem) {
+    elems = elem.querySelectorAll(query)
+  }
+
+  return elems
+}
