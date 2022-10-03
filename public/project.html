@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,7 +12,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"
+    ></script>
     <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
     <script
       defer
@@ -21,6 +23,8 @@
     ></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script defer src="js/database.js"></script>
+    <script defer src="js/utility.js"></script>
+    <script defer src="js/project.js"></script>
     <title>Project</title>
   </head>
   <body>
@@ -34,6 +38,30 @@
       </div>
     </header>
     <main class="mdc-top-app-bar--fixed-adjust">
+      <div>
+        <span id="tag-list"></span>
+      </div>
+      <div>
+        <label
+          class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label"
+        >
+          <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch"> </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input
+            id="search-tag"
+            type="text"
+            class="mdc-text-field__input"
+            aria-label="Label"
+          />
+        </label>
+        <button id="search-work-button" class="mdc-button mdc-button--raised">
+          <span class="mdc-button__label">検索</span>
+        </button>
+      </div>
+
       <ul id="work-list" class="mdc-list"></ul>
 
       <div>
@@ -57,64 +85,5 @@
         </button>
       </div>
     </main>
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        // プロジェクト名はクエリパラメータ経由で受け取る
-        const searchParams = new URLSearchParams(location.search)
-        if (searchParams.has('projectName')) {
-          // ヘッダー部分はプロジェクト名に合わせる
-          const projectName = searchParams.get('projectName')
-          const projectNameElem = document.getElementById('project-name')
-          projectNameElem.textContent = projectName
-
-          // 作業一覧はリストとして表示
-          const workListElem = document.getElementById('work-list')
-          getChildKeys(projectName).then((keys) => {
-            if (keys.length === 0) {
-              workListElem.insertAdjacentHTML(
-                'beforeend',
-                `<li class="mdc-list-item">
-                  <button class=mdc-button>
-                    <span class="mdc-button__ripple"></span>
-                    <span class="mdc-button__text">登録されている作業はありません</span>
-                  </button>
-                </li>`
-              )
-            } else {
-              keys.forEach((key) => {
-                workListElem.insertAdjacentHTML(
-                  'beforeend',
-                  `<li class="mdc-list-item">
-                    <button class=mdc-button onclick="location.href='http://localhost:50000/work.html?workName=${key}'">
-                      <span class="mdc-button__ripple"></span>
-                      <span class="mdc-button__text">${key}</span>
-                    </button>
-                  </li>`
-                )
-              })
-            }
-          })
-        } else {
-          console.log('query not found')
-        }
-        const addWorkButton = document.getElementById('add-work-button')
-        addWorkButton.addEventListener('click', () => {
-          const workName = document.getElementById('work-name').value
-          console.log(workName)
-          const data = {
-            [workName]: {
-              material: '',
-              movie: '',
-            },
-          }
-          const searchParams = new URLSearchParams(location.search)
-          if (searchParams.has('projectName')) {
-            const projectName = searchParams.get('projectName')
-            updateData(`${projectName}`, data)
-          }
-        })
-      })
-    </script>
   </body>
 </html>
-
