@@ -1,7 +1,7 @@
 
 let s_name = [];
 const path = "/";
-var num_tag = 1 ;
+var num_tag = 1;
 /*
 async function get_project_name(){
   const ref = firebase.database().ref(path)
@@ -44,11 +44,15 @@ async function getChildKeys(path) {
   const workListElem = document.getElementById('make_pro');
 
   keys.forEach((key) => {
-    workListElem.insertAdjacentHTML(
-      'beforeend',
-      `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'">${key}<br></a>
+    const projectRef = firebase.database().ref(`${path}/${key}/tag`)
+    projectRef.get().then((snapshot) => {
+      workListElem.insertAdjacentHTML(
+        'beforeend',
+        `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'" data-tag="${snapshot.val()}">${key}<br></a>
       <p><br></p>`
-    )
+      )
+
+    })
   })
 
   console.log(keys.length)
@@ -61,7 +65,7 @@ window.onload = () => {
 }
 
 /*プロジェクトの作成*/
-document.getElementById("make_project_button").onclick = async function() {
+document.getElementById("make_project_button").onclick = async function () {
   const ref = firebase.database().ref(path);
   const snapshot = await ref.get()
   if (snapshot.exists()) {
@@ -71,13 +75,13 @@ document.getElementById("make_project_button").onclick = async function() {
   const textbox = document.getElementById("Pname");
   const Project_name = textbox.value;
 
-  if (keys.includes(Project_name)){
+  if (keys.includes(Project_name)) {
     alert('this project name is existing!')
-  }else{
+  } else {
     //let data = { [Project_name]:{tag:[Project_name]} }
     let tag_list = []
     tag_list.push(Project_name)
-    for (var i = 0; i < num_tag ; i++) { 
+    for (var i = 0; i < num_tag; i++) {
       tag_input = 'inputform_' + i
       let tag_id = document.getElementById(tag_input);
       let tag_name = tag_id.value;
@@ -85,7 +89,7 @@ document.getElementById("make_project_button").onclick = async function() {
     }
     //let tag_arr = {}
     //tag_arr.tag = tag_list;
-    const data = { [Project_name]:{tag:tag_list} }
+    const data = { [Project_name]: { tag: tag_list } }
     ref.update(data);
     window.location.reload();
   }
@@ -99,5 +103,16 @@ function addForm() {
   input_data.placeholder = '#';
   var parent = document.getElementById('form_area');
   parent.appendChild(input_data);
-  num_tag++ ;
+  num_tag++;
 }
+
+document.getElementById('search-button').addEventListener('click', () => {
+  const tag = document.getElementById('search-tag').value
+  const projectList = document.getElementById('make_pro')
+  projectList.querySelectorAll(`a:not([data-tag*=${tag}])`).forEach((elem) => {
+    elem.style.display = 'none'
+  })
+  projectList.querySelectorAll(`a[data-tag*=${tag}]`).forEach((elem) => {
+    elem.style.display = ''
+  })
+})
