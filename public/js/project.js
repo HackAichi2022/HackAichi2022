@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // keyとvalueを取得してforで回す
         for (const [workName, workInfo] of Object.entries(workList)) {
           workListContent +=
-            `<li class="mdc-list-item">
+            `<li class="mdc-list-item" data-tag="${workInfo.tag}">
               <button id="${workName}" class=mdc-button onclick="location.href='http://localhost:50000/work.html?projectName=${projectName}&workName=${workName}'">
                 <span class="mdc-button__ripple"></span>
                 <span class="mdc-button__text">${workName}, ${workInfo.tag}</span>
@@ -63,4 +63,14 @@ document.getElementById('add-work-button').addEventListener('click', () => {
   if (projectName) {
     updateData(`${projectName}/workList`, data)
   }
+})
+
+document.getElementById('search-work-button').addEventListener('click', () => {
+  const tag = document.getElementById('search-tag').value
+  queryElements(document.getElementById('work-list'), `li:not([data-tag*=${tag}])`).forEach((elem) => {
+    elem.style.display = 'none'
+  })
+  queryElements(document.getElementById('work-list'), `li[data-tag*=${tag}]`).forEach((elem) => {
+    elem.style.display = ''
+  })
 })
