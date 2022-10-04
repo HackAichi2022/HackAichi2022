@@ -131,6 +131,7 @@ dmypy.json
 # Firebase Emulators
 /data/storage_export/blobs/
 /data/storage_export/metadata/
+/firebase-export-*/*
 
 # Visual Studio Code
 .vscode/
