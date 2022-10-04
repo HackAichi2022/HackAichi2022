@@ -13,7 +13,7 @@ function createVideo(path, name ,i) {
     console.log(name);
     // var obj = document.getElementById("link");
     var tag=document.createElement('a');
-    tag.setAttribute('href','http://localhost:50000/video.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&ID='+id);
+    tag.setAttribute('href','http://localhost:50000/video.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&videoID='+id);
     tag.appendChild(document.createTextNode(name));
     // obj.appendChild(tag);
     document.body.appendChild(tag);
