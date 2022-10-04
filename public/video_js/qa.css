@@ -1,30 +1,31 @@
 /* li（幅100%）の中に、div（吹き出し）を挿入 */
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", YuGothic, "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, Arial, "メイリオ", Meiryo, sans-serif;
 }
-h1{
+
+h1 {
     font-size: 20px;
     text-align: center;
     margin-top: 10px;
 }
 
 
-#QA-title{
+#QA-title {
     position: fixed;
-    top:    50px; 
-    right:  1.5%;
+    top: 50px;
+    right: 1.5%;
     width: 30%;
     height: 80%;
 }
 
 
 /*チャットのフィールド*/
-#field{
+#field {
     position: fixed;
-    top:    90px; 
-    right:  1.3%;
+    top: 90px;
+    right: 1.3%;
     width: 30%;
     height: 80%;
     padding: 7px 0 14px;
@@ -40,42 +41,43 @@ h1{
     /*IE、Edgeでスクロールバーを非表示にする*/
     -ms-overflow-style: none;
 }
+
 /*Chrome、Safariでスクロールバーを非表示にする*/
 #field::-webkit-scrollbar {
-    display:none;
+    display: none;
 }
 
 
 
 /* 質問＆回答(セレクトボックス) */
-#chat-tag{
+#chat-tag {
     position: fixed;
     height: 30px;
-    bottom: 2.5%; 
-    right:  26%;
-    width:  5.2%;
+    bottom: 2.5%;
+    right: 26%;
+    width: 5.2%;
     display: block;
     font-size: 14px;
 }
 
 
 /* 緊急_重要_普通(セレクトボックス) */
-#chat-priority{
+#chat-priority {
     position: fixed;
     height: 30px;
-    bottom: 2.5%; 
-    right:  21.2%;
-    width:  4.4%;
+    bottom: 2.5%;
+    right: 21.2%;
+    width: 4.4%;
     display: block;
     font-size: 14px;
 }
 
 /*入力する場所*/
-#chat-input{
+#chat-input {
     position: fixed;
     height: 30px;
-    bottom: 2.5%; 
-    right:  4%;
+    bottom: 2.5%;
+    right: 4%;
     width: 16%;
     display: block;
     font-size: 14px;
@@ -86,51 +88,51 @@ h1{
     padding-left: 10px;
     margin: auto 10px;
 }
-#chat-input:focus{
-    border: 1.3px solid #8873FF;
+
+#chat-input:focus {
     outline: 0;
 }
 
 
 /*送信ボタン*/
-#chat-button{
+#chat-button {
     position: fixed;
     cursor: pointer;
-    bottom: 2.5%; 
-    right:  1.3%;
+    bottom: 2.5%;
+    right: 1.3%;
     height: 30px;
     width: 3%;
     font-size: 13px;
-    background: #8873FF;
     color: white;
     display: block;
     /*デフォルトのボーダーを消す*/
     border: none;
     box-sizing: border-box;
-    border-radius: 6.5px;
 }
-#chat-button:focus{
+
+#chat-button:focus {
     outline: 0;
-    background: #A899FF;
 }
 
 
 
 
 /* 表示部分の設定？ */
-#chat-ul{
+#chat-ul {
     /*ulのデフォルの隙間を消す*/
     padding: 0;
     list-style: none;
 }
-#chat-ul > li{
+
+#chat-ul>li {
     position: relative;
     display: block;
     width: 100%;
     margin-top: 7px;
     word-wrap: break-word;
 }
-#chat-ul > li > li{
+
+#chat-ul>li>li {
     position: relative;
     display: block;
     width: 100%;
@@ -140,7 +142,7 @@ h1{
 
 
 /*自分（質問）の吹き出し*/
-#chat-ul > li > div{
+#chat-ul>li>div {
     display: inline-block;
     box-sizing: border-box;
     color: #000;
@@ -151,18 +153,20 @@ h1{
     font-size: 15px;
     line-height: 1.2em;
 }
-.chat-left{
+
+.chat-left {
     margin-left: 15px;
     background: #A4E496;
     text-align: left;
 }
-.left{
-  text-align: left;
+
+.left {
+    text-align: left;
 }
 
 
 /*相手（回答）の吹き出し*/
-#chat-ul > li > li > div{
+#chat-ul>li>li>div {
     display: inline-block;
     box-sizing: border-box;
     color: #000;
@@ -175,12 +179,14 @@ h1{
     font-size: 15px;
     line-height: 1.2em;
 }
-.chat-right{
+
+.chat-right {
     margin-right: 15px;
     background: #FFF;
     text-align: left;
 }
-.chat-right::before{
+
+.chat-right::before {
     display: block;
     position: absolute;
     content: "";
@@ -196,38 +202,39 @@ h1{
     transform-origin: 100% 0%;
     background: #FFF;
 }
-.right{
+
+.right {
     text-align: right;
 }
 
 
 /* 質問順か時間順かソートするセレクトボックス */
-#chat-sort{
+#chat-sort {
     position: fixed;
-    top:    50px; 
-    right:  1.5%;
+    top: 50px;
+    right: 1.5%;
     width: 8%;
     height: 5%;
 }
 
 /* 削除選択，削除ボタン */
-#chat-delete{
+#chat-delete {
     position: fixed;
-    top:    50px; 
-    right:  27.5%;
+    top: 50px;
+    right: 27.5%;
     width: 3.8%;
     height: 5%;
 }
 
-#chat-delete-button{
+#chat-delete-button {
     position: fixed;
     cursor: pointer;
-    top: 50px; 
-    right:  23%;
+    top: 50px;
+    right: 23%;
     height: 5%;
     width: 3.8%;
     font-size: 13px;
-    background: #8873FF;
+    /* background: #8873FF; */
     color: white;
     display: block;
     /*デフォルトのボーダーを消す*/
@@ -235,4 +242,3 @@ h1{
     box-sizing: border-box;
     border-radius: 6.5px;
 }
-  
