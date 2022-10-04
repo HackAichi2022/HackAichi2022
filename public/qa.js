@@ -180,14 +180,20 @@ function sortQA() {
 /*detabaseとの処理----------------------------------------------------------------------------------------*/
 /*保存部分の処理*/
 function setDatabaseQA() {
-    firebase.database().ref(`${projectname}/workList/${workname}/qaData`).set({
+    const projectname = getQueryParam('projectName');
+    const workname = getQueryParam('workName');
+    const videoid = getQueryParam('videoID');
+    firebase.database().ref(projectname+"/workList/"+workname+"/"+videoid+"/qaData").set({
         qa: dataQA
     });
 }
 
 /*呼出部分の処理*/
 function getDatabaseQA() {
-    firebase.database().ref(`${projectname}/workList/${workname}/qaData`).get().then((snapshot) => {
+    const projectname = getQueryParam('projectName');
+    const workname = getQueryParam('workName');
+    const videoid = getQueryParam('videoID');
+    firebase.database().ref(projectname+"/workList/"+workname+"/"+videoid+"/qaData").get().then((snapshot) => {
         if (snapshot.exists()) {
             let data = snapshot.val()
             if (data.qa != null) {

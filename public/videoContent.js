@@ -93,14 +93,20 @@ function v_deleteBtnFunc() {
 }
 
 function setDatabaseVC() {
-    firebase.database().ref(`${projectname}/workList/${workname}/videoData`).set({
+    const projectname = getQueryParam('projectName');
+    const workname = getQueryParam('workName');
+    const videoid = getQueryParam('videoID');
+    firebase.database().ref(projectname+"/workList/"+workname+"/"+videoid+"/videoData").set({
         vc: dataVtask
     });
 }
 
 /*呼出部分の処理*/
 function getDatabaseVC() {
-    firebase.database().ref(`${projectname}/workList/${workname}/videoData`).get().then((snapshot) => {
+    const projectname = getQueryParam('projectName');
+    const workname = getQueryParam('workName');
+    const videoid = getQueryParam('videoID');
+    firebase.database().ref(projectname+"/workList/"+workname+"/"+videoid+"/videoData").get().then((snapshot) => {
         if (snapshot.exists()) {
             let data = snapshot.val()
             if (data.vc != null) {
