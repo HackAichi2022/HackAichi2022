@@ -8,9 +8,10 @@ function judgementPdf(fileName) {
 
 function createPdf(path, name) {
     console.log(name);
+    var id=name.slice( 0, -4 );
     // var obj = document.getElementById("link");
     var tag=document.createElement('a');
-    tag.setAttribute('href','http://localhost:50000/pdf.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&ID='+name);
+    tag.setAttribute('href','http://localhost:50000/pdf.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&ID='+id);
     tag.appendChild(document.createTextNode(name));
     // obj.appendChild(tag);
     document.body.appendChild(tag);
