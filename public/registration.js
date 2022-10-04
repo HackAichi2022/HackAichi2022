@@ -1,5 +1,5 @@
-var projectname = "pj1"
-    var workname = "work1"
+let projectname = getQueryParam('projectName')
+let workname = getQueryParam('workName')
 
     function OnButtonClick(){
         // alert("test");

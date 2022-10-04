@@ -1,142 +1,169 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Welcome to Firebase Hosting</title>
 
-      <!-- firebase.js -->
-      <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
-      <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- firebase.js -->
+    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.10.0/firebase-database-compat.js"
+    ></script>
+    <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-      <!-- jquery.js -->
-      <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
-       <script defer src="registration.js"></script>
-       <script defer src="delete.js"></script>
-       <!-- 動画 -->
-       <script defer src="auto_video.js"></script>
-       <script defer src="pdf_view.js"></script>
-       <!-- JS -->
-        <script defer src="./video.js"></script>
-        <script defer src="./videoContent.js"></script>
-     <script defer src="./qa.js"></script>
+    <!-- jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script defer src="./js/utility.js"></script>
+    <script defer src="registration.js"></script>
+    <script defer src="delete.js"></script>
+    <!-- 動画 -->
+    <script defer src="auto_video.js"></script>
+    <script defer src="pdf_view.js"></script>
+    <!-- JS -->
+    <script defer src="./video.js"></script>
+    <script defer src="./videoContent.js"></script>
+    <script defer src="./qa.js"></script>
 
-      <style>
-         #canvas_container {
-             /** pdf表示画面のCSS この辺りはカスタマイズしてください。 */
-             height: 100%;
-             overflow: auto;
-             background: #333;
-             text-align: center;
-             border: solid 3px;
-         }
-     </style>
+    <style>
+      #canvas_container {
+        /** pdf表示画面のCSS この辺りはカスタマイズしてください。 */
+        height: 100%;
+        overflow: auto;
+        background: #333;
+        text-align: center;
+        border: solid 3px;
+      }
+    </style>
 
-    
-     <!-- CSS -->
-     <!-- <link type="text/css" rel="stylesheet" href="video.css">
+    <!-- CSS -->
+    <!-- <link type="text/css" rel="stylesheet" href="video.css">
      <link type="text/css" rel="stylesheet" href="videoContent.css"> -->
-     <link type="text/css" rel="stylesheet" href="qa.css">
-     
-   
-   </head>
-   <body>
+    <link type="text/css" rel="stylesheet" href="qa.css" />
+  </head>
+  <body>
     <h1>作業マニュアルページ</h1>
     <!-- 登録 -->
-    動画ファイル，pdfファイルの送信<br>
-    <input type="file" id="send" multiple required>
+    動画ファイル，pdfファイルの送信<br />
+    <input type="file" id="send" multiple required />
 
-    
-    <button onclick="OnButtonClick()">送信する</button><br><br>
+    <button onclick="OnButtonClick()">送信する</button><br /><br />
 
     <!-- 削除 -->
-    資料の削除<br><br>
+    資料の削除<br /><br />
     <div>
-        <form name="form1"id="contentsList">
-                
-        </form>
+      <form name="form1" id="contentsList"></form>
     </div>
 
-    <button onclick="OnDeleteClick()">削除する</button><br><br>
-
+    <button onclick="OnDeleteClick()">削除する</button><br /><br />
 
     <!-- pdf -->
     <div id="pdf_viewer">
-        <!-- <div id="canvas_container">
+      <!-- <div id="canvas_container">
             
         </div> -->
     </div>
 
-    
-      
-      <!-- qa.js--------------------------------------------------------------------------------------->
-      <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
-      <h1 id="QA-title">質問＆回答</h1>
+    <!-- qa.js--------------------------------------------------------------------------------------->
+    <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
+    <h1 id="QA-title">質問＆回答</h1>
 
-      <!--表示のソート-->
-      <select name="chat-sort" id="chat-sort" onchange="sortQA()">
-         <option value="sort_Q">質問順</option>
-         <option value="sort_T">時間順</option>
-      </select>
+    <!--表示のソート-->
+    <select name="chat-sort" id="chat-sort" onchange="sortQA()">
+      <option value="sort_Q">質問順</option>
+      <option value="sort_T">時間順</option>
+    </select>
 
-      <!--画面-->
-      <div id= "field">
-         <ul id= "chat-ul" style="display: flex;flex-direction: column"></ul>
-      </div>
+    <!--画面-->
+    <div id="field">
+      <ul id="chat-ul" style="display: flex; flex-direction: column"></ul>
+    </div>
 
-      <!--入力場所，送信ボタン-->
-      <select name="chat-tag" id="chat-tag">
-         <option value="Q">質問</option>
-      </select>
+    <!--入力場所，送信ボタン-->
+    <select name="chat-tag" id="chat-tag">
+      <option value="Q">質問</option>
+    </select>
 
-      <select name="chat-priority" id="chat-priority">    
-         <option value="普通">普通</option>
-         <option value="重要">重要</option>
-         <option value="緊急">緊急</option>
-      </select>
+    <select name="chat-priority" id="chat-priority">
+      <option value="普通">普通</option>
+      <option value="重要">重要</option>
+      <option value="緊急">緊急</option>
+    </select>
 
-      <input type= "text" id= "chat-input">
-      <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
+    <input type="text" id="chat-input" />
+    <input
+      type="button"
+      value="Send"
+      id="chat-button"
+      onclick="sendBtnFunc()"
+    />
 
-      <!--削除選択，削除ボタン-->
-      <select name="chat-delete" id="chat-delete">
-      </select>
+    <!--削除選択，削除ボタン-->
+    <select name="chat-delete" id="chat-delete"></select>
 
-      <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
-      <!------------------------------------------------------------------------------------ -->
+    <input
+      type="button"
+      value="delete"
+      id="chat-delete-button"
+      onclick="deleteBtnFunc()"
+    />
+    <!------------------------------------------------------------------------------------ -->
 
-      <!--videoContent.js---------------------------------------------------------------------->  
-      <h1 id="v-work-title">動画作業一覧</h1>
-      
-      <div id= "v-work-field">
-         <ul id= "v-work-ul" style="display: flex;flex-direction: column"></ul>
-      </div>
+    <!--videoContent.js---------------------------------------------------------------------->
+    <h1 id="v-work-title">動画作業一覧</h1>
 
-      <input type= "button" value= "動画作業登録" id= "add-video-work-button" onclick= "v_addWorkBtnFunc()">
+    <div id="v-work-field">
+      <ul id="v-work-ul" style="display: flex; flex-direction: column"></ul>
+    </div>
 
-      <div id= "input-work-field" style="z-index:-1000">
-         <h3 id="v-name-title">作業名</h3>
-         <input type= "text" id= "v-name">
-         <h3 id="v-time-title">動画時間</h3>
-         <input type= "text" id= "v-time">
-         <h3 id="v-content-title">作業内容</h3>
-         <textarea id="v-content" placeholder="こちらに作業内容を入力してください"></textarea>
-         <input type= "button" value= "登録" id= "v-register-button" onclick= "v_registerBtnFunc()">
-         <input type= "button" value= "キャンセル" id= "v-cancel-button" onclick= "v_cancelBtnFunc()">
-         <input type= "button" value= "クリア" id= "v-cls-button" onclick= "v_clsBtnFunc()">
-      </div>
+    <input
+      type="button"
+      value="動画作業登録"
+      id="add-video-work-button"
+      onclick="v_addWorkBtnFunc()"
+    />
 
-      <!--削除選択，削除ボタン-->
-      <select name="v-work-delete" id="v-work-delete">
-      </select>
-      
-      <input type= "button" value= "delete" id= "v-work-delete-button" onclick= "v_deleteBtnFunc()">
+    <div id="input-work-field" style="z-index: -1000">
+      <h3 id="v-name-title">作業名</h3>
+      <input type="text" id="v-name" />
+      <h3 id="v-time-title">動画時間</h3>
+      <input type="text" id="v-time" />
+      <h3 id="v-content-title">作業内容</h3>
+      <textarea
+        id="v-content"
+        placeholder="こちらに作業内容を入力してください"
+      ></textarea>
+      <input
+        type="button"
+        value="登録"
+        id="v-register-button"
+        onclick="v_registerBtnFunc()"
+      />
+      <input
+        type="button"
+        value="キャンセル"
+        id="v-cancel-button"
+        onclick="v_cancelBtnFunc()"
+      />
+      <input
+        type="button"
+        value="クリア"
+        id="v-cls-button"
+        onclick="v_clsBtnFunc()"
+      />
+    </div>
 
+    <!--削除選択，削除ボタン-->
+    <select name="v-work-delete" id="v-work-delete"></select>
 
-   </body>
+    <input
+      type="button"
+      value="delete"
+      id="v-work-delete-button"
+      onclick="v_deleteBtnFunc()"
+    />
+  </body>
 </html>
-
-

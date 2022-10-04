@@ -25,10 +25,7 @@ function createVideo(path, i) {
     });
 }
 
-var projectname = "pj1"
-var workname = "work1"
-
-window.addEventListener('load', function(){  
+window.addEventListener('load', function () {
 
     const storage = firebase.storage();
     var ref_path = projectname + "/" + workname
