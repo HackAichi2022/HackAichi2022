@@ -41,18 +41,17 @@ function scroll(video) {
         });
 
 
-        作業一覧のスクロール部分
         const v_field = document.getElementById('v-work-field');
-        if(video1.currentTime < 0.3)  v_field.scrollTo(0, 0);
+        if (video1.currentTime < 0.3) v_field.scrollTo(0, 0);
         let v_count = 0
         let v_li = document.querySelectorAll("#v-work-ul li");
-        Array.from(v_li).forEach( elm =>{
-            if(elm.state != "delete"){
-                if(v_count == 0){
+        Array.from(v_li).forEach(elm => {
+            if (elm.state != "delete") {
+                if (v_count == 0) {
                     var rect = elm.getBoundingClientRect();
                     v_count = rect.top;
                 }
-                if(Math.abs(elm.id - video1.currentTime) < 0.15){
+                if (Math.abs(elm.id - video1.currentTime) < 0.15) {
                     var rect = elm.getBoundingClientRect();
                     console.log(rect.top)
                     v_field.scrollTo(0, rect.top - v_count);
