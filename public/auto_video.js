@@ -8,21 +8,33 @@ function judgementVideo(fileName) {
     return false
 }
 
-function createVideo(path, i) {
-    const storage = firebase.storage();
-    const ref = storage.ref(path);
+function createVideo(path, name ,i) {
+    var id=name.slice( 0, -4 );
+    console.log(name);
+    // var obj = document.getElementById("link");
+    var tag=document.createElement('a');
+    tag.setAttribute('href','http://localhost:50000/video.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&videoID='+id);
+    tag.appendChild(document.createTextNode(name));
+    // obj.appendChild(tag);
+    document.body.appendChild(tag);
+    document.body.appendChild(document.createElement("br"));
 
-    ref.getDownloadURL().then((url) => {
-        var video = document.createElement("video");
-        video.src = url; // 動的に生成した動画のURL
-        video.setAttribute("id", "video" + i);
-        video.setAttribute("class", "video" + i);
-        video.setAttribute("controls", "");
-        console.log(video.id)
-        document.body.appendChild(video);
-        document.body.appendChild(document.createElement("br"));
-        scroll(video.id);
-    });
+
+    
+    // const storage = firebase.storage();
+    // const ref = storage.ref(path);
+
+    // ref.getDownloadURL().then((url) => {
+    //     var video = document.createElement("video");
+    //     video.src = url; // 動的に生成した動画のURL
+    //     video.setAttribute("id", "video" + i);
+    //     video.setAttribute("class", "video" + i);
+    //     video.setAttribute("controls", "");
+    //     console.log(video.id)
+    //     document.body.appendChild(video);
+    //     document.body.appendChild(document.createElement("br"));
+    //     scroll(video.id);
+    // });
 }
 
 window.addEventListener('load', function () {
@@ -42,7 +54,7 @@ window.addEventListener('load', function () {
             console.log(itemRef.fullPath)
             if (judgementVideo(itemRef.fullPath) == true) {
                 console.log('true')
-                createVideo(itemRef.fullPath, i);
+                createVideo(itemRef.fullPath,itemRef.name, i);
                 i += 1;
             }
             else { console.log('false') }
