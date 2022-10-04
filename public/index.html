@@ -1,104 +1,81 @@
 <!DOCTYPE html>
-<html lang="ja">
-   <head>
-      <meta charset="UTF-8">
-      <title>of us</title>
+<html>
+<head>
+  <meta charset="utf-8">
+  <html lang="ja">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>KKDB</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+            
+</head>
+<body>
+  <header>
+    <!-- ヘッダーはここに記述 -->
+  </header>
+  <h1><span>Kotu Kotu</span><span>Data Base!</span></h1>
 
-      <!-- firebase.js -->
-      <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
-      <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <hr class="hr1">
 
-      <!-- Q&A用　-->
-      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <p id="p1" style="text-align:center">プロジェクトページを新規作成する場合はプロジェクト名を入力して作成ボタンをクリックしてください！<br></p>
 
-      <!-- JS -->
-      <script defer src="./video.js"></script>
-      <script defer src="./videoContent.js"></script>
-      <script defer src="./qa.js"></script>
 
-      <!-- CSS -->
-      <link type="text/css" rel="stylesheet" href="video.css">
-      <link type="text/css" rel="stylesheet" href="videoContent.css">
-      <link type="text/css" rel="stylesheet" href="qa.css">
-   </head>
-   <body>
-      <!--video.js 動画表示-------------------------------------------------------------------->
-      <!-- 動画設置 -->
-      <video id="video1" class="video1" controls></video>
-      <div id= "video1-field" style="z-index:-999"></div>
+  <!--<style>
+    .button{
+        width: fit-content;
+        margin: auto;
+        border: 1px solid #333;
+        background: #e3f5ff;
+    }
+    </style>
+  <form class="button">
+    <label for="text">プロジェクト名</label>
+    <input 
+      type="text"
+      id="Pname"
+      required >
+    <button 
+      type="button"
+      id="make_project_button"
+      >作成！</button>
+  </form>-->
 
-      <!--videoContent.js---------------------------------------------------------------------->  
-      <h1 id="v-work-title">動画作業一覧</h1>
-      
-      <div id= "v-work-field">
-         <ul id= "v-work-ul" style="display: flex;flex-direction: column"></ul>
+  <div class="bg_pattern Paper_v2"></div>
+<div class="section">
+</div>
+
+  <form class="make_p">
+    <h2>Make new project!</h2>
+      <div>
+          <label>New project name</label>
+          <input type="text" class="text" id="Pname" size="45" value="" required/>
       </div>
-
-      <input type= "button" value= "動画作業登録" id= "add-video-work-button" onclick= "v_addWorkBtnFunc()">
-
-      <div id= "input-work-field" style="z-index:-1000">
-         <h3 id="v-name-title">作業名</h3>
-         <input type= "text" id= "v-name">
-         <h3 id="v-time-title">動画時間</h3>
-         <input type= "text" id= "v-time">
-         <h3 id="v-content-title">作業内容</h3>
-         <textarea id="v-content" placeholder="こちらに作業内容を入力してください"></textarea>
-         <input type= "button" value= "登録" id= "v-register-button" onclick= "v_registerBtnFunc()">
-         <input type= "button" value= "キャンセル" id= "v-cancel-button" onclick= "v_cancelBtnFunc()">
-         <input type= "button" value= "クリア" id= "v-cls-button" onclick= "v_clsBtnFunc()">
+      <div id="form_area">
+        <label>Project Tag</label>
+        <input type="text" id="inputform_0" placeholder="#">
+      <input type="button" value="add tag form" onclick="addForm()">
       </div>
-
-      <!--削除選択，削除ボタン-->
-      <select name="v-work-delete" id="v-work-delete">
-      </select>
-      
-      <input type= "button" value= "delete" id= "v-work-delete-button" onclick= "v_deleteBtnFunc()">
-
-      <!--qa.js--------------------------------------------------------------------------------------->
-      <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
-      <h1 id="QA-title">質問＆回答</h1>
-
-      <!--表示のソート-->
-      <select name="chat-sort" id="chat-sort" onchange="sortQA()">
-         <option value="sort_Q">質問順</option>
-         <option value="sort_T">時間順</option>
-      </select>
-
-      <!--画面-->
-      <div id= "field">
-         <ul id= "chat-ul" style="display: flex;flex-direction: column"></ul>
+      <div id="search-form">
+        <label>Search by Tag</label>
+        <input type="text" id="search-tag">
+        <button type="button" id="search-button">Search</button>
       </div>
+     <div>
+      <input type="button" class="submit" id="make_project_button" value="create!" />
+    </div>
+  </form>
 
-      <!--入力場所，送信ボタン-->
-      <select name="chat-tag" id="chat-tag">
-         <option value="Q">質問</option>
-      </select>
+  <p id="p2" >
+    既存プロジェクトページの参照はそのプロジェクトのページをクリックしてください！<br></p>
+  <!-- <ul id="list">
+  </ul>-->
 
-      <select name="chat-priority" id="chat-priority">    
-         <option value="普通">普通</option>
-         <option value="重要">重要</option>
-         <option value="緊急">緊急</option>
-      </select>
+  <div id="make_pro" class="make_pro_button"></div>
 
-      <input type= "text" id= "chat-input">
-      <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
-
-      <!--削除選択，削除ボタン-->
-      <select name="chat-delete" id="chat-delete">
-      </select>
-
-      <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
-      <!-------------------------------------------------------------------------------------->
-
-   </body>
+  <script src="get_data.js"></script>
+</body>
 </html>
-
