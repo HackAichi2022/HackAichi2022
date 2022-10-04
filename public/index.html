@@ -21,7 +21,7 @@
 
   <hr class="hr1">
 
-  <p id="p1" style="text-align:center">プロジェクトページを新規作成する場合はプロジェクト名を入力して作成ボタンをクリックしてください！<br></p>
+  <p id="p1" style="text-align:left">プロジェクトページの新規作成<br></p>
 
 
   <!--<style>
@@ -48,32 +48,58 @@
 <div class="section">
 </div>
 
+  <!--<div style="display:flex; justify-content:space-around; flex-wrap: wrap; ">-->
+  <div style="display: flex; justify-content:space-around; flex-wrap: wrap; gap: 20px;">
   <form class="make_p">
-    <h2>Make new project!</h2>
+    <h2>Make new project</h2>
       <div>
           <label>New project name</label>
           <input type="text" class="text" id="Pname" size="45" value="" required/>
       </div>
+      <div>
+        <label>Summary</label>
+        <input type="text" class="text" id="Summary" size="45" rows=”3″ cols=”50″ wrap=”soft” required/>
+    </div>
+    <div>
+      <label>Participant</label>
+      <input type="text" class="text" id="Participant" size="45" rows=”3″ cols=”50″ wrap=”soft” required/>
+    </div>
+    <div>
+      <label>Client/Customer</label>
+      <input type="text" class="text" id="Client_Customer" rows=”3″ size="45" cols=”50″ wrap=”soft” required/>
+    </div>
       <div id="form_area">
         <label>Project Tag</label>
         <input type="text" id="inputform_0" placeholder="#">
+      </div>
       <input type="button" value="add tag form" onclick="addForm()">
-      </div>
-      <div id="search-form">
-        <label>Search by Tag</label>
-        <input type="text" id="search-tag">
-        <button type="button" id="search-button">Search</button>
-      </div>
+      <p id="sent">※標準としてプロジェクト名はタグとして登録されます</p>
      <div>
       <input type="button" class="submit" id="make_project_button" value="create!" />
     </div>
   </form>
 
-  <p id="p2" >
-    既存プロジェクトページの参照はそのプロジェクトのページをクリックしてください！<br></p>
+
+  <!--<p id="p2" >
+    既存プロジェクトページの参照はそのプロジェクトのページをクリックしてください！<br></p>-->
+  
+    <form class="search_p">
+      <h2>Search project by tag</h2>
+        <div id="form_area">
+          <label>search tag</label>
+          <input type="text" id="search-tag" placeholder="#">
+          <p id="sent"><br>※標準としてプロジェクト名はタグとして登録されています</p>
+        </div>
+       <div>
+        <input type="button" class="submit" id="search-button" value="Search" />
+      </div>
+    </form>
+    </div>
+
   <!-- <ul id="list">
   </ul>-->
-
+</div>
+<p id="p1" style="text-align:right">既存プロジェクトページの参照<br></p>
   <div id="make_pro" class="make_pro_button"></div>
 
   <script src="get_data.js"></script>

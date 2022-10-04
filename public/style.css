@@ -135,6 +135,7 @@ p#p1{
   border-top: solid 2px black;
   border-bottom: solid 2px black;
 }
+
 p#p1:before, p#p1:after {
   content: '';
   position: absolute;
@@ -220,8 +221,8 @@ div#make_pro {
 }
 
 .make_pro_button a {
-  width: 250px;
-  height: 200px;
+  width: 350px;
+  height: 250px;
   position: relative;
   padding: 1rem;
   box-shadow: 10px 10px #715c47;
@@ -253,6 +254,8 @@ box-shadow: 0 0 0;
   form{
     background:#333333;
     width:700px;
+    max-width: 700px;
+    height:500pt;
     padding:20px 40px;
   }
   form div{
@@ -301,4 +304,14 @@ box-shadow: 0 0 0;
   .make_p{
     /*コレ*/width: fit-content;
     /*コレ*/margin: auto;
-}
+  }
+  .search_p{
+    /*コレ*/width: fit-content;
+    /*コレ*/margin: auto;
+  }
+  .make_p p{
+    color: #F5F5F5;
+  }
+  .search_p p{
+    color: #F5F5F5;
+  }
