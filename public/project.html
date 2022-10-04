@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script
+      defer
+      src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"
+    ></script>
+    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.10.0/firebase-database-compat.js"
+    ></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="js/database.js"></script>
+    <script defer src="js/utility.js"></script>
+    <script defer src="js/project.js"></script>
+    <title>Project</title>
+  </head>
+  <body>
+    <header class="mdc-top-app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section
+          class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"
+        >
+          <span id="project-name" class="mdc-top-app-bar__title">Project</span>
+        </section>
+      </div>
+    </header>
+    <main class="mdc-top-app-bar--fixed-adjust">
+      <div>
+        <span id="tag-list"></span>
+      </div>
+      <div>
+        <label
+          class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label"
+        >
+          <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch"> </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input
+            id="search-tag"
+            type="text"
+            class="mdc-text-field__input"
+            aria-label="Label"
+          />
+        </label>
+        <button id="search-work-button" class="mdc-button mdc-button--raised">
+          <span class="mdc-button__label">検索</span>
+        </button>
+      </div>
+
+      <ul id="work-list" class="mdc-list"></ul>
+
+      <div>
+        <label
+          class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label"
+        >
+          <span class="mdc-notched-outline mdc-notched-outline--upgraded">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch"> </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input
+            id="work-name"
+            type="text"
+            class="mdc-text-field__input"
+            aria-label="Label"
+          />
+        </label>
+        <button id="add-work-button" class="mdc-button mdc-button--raised">
+          <span class="mdc-button__label">追加</span>
+        </button>
+      </div>
+    </main>
+  </body>
+</html>

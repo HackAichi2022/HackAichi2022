@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- firebase.js -->
+    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <!-- jquery.js -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    </head>
+    <body>
+
+    <script>
+        function judgementVideo(fileName){
+            // fileName = fileName.substring(fileName.lastIndexOf('.'))
+            if (fileName.toUpperCase().match(/\.(mp4)$/i)) {return true}
+            if (fileName.toUpperCase().match(/\.(avi)$/i)) {return true}
+            if (fileName.toUpperCase().match(/\.(fiv)$/i)) {return true}
+            if (fileName.toUpperCase().match(/\.(mov)$/i)) {return true}
+            if (fileName.toUpperCase().match(/\.(wmv)$/i)) {return true}
+            return false
+        }
+
+        function createVideo(path){
+            const storage = firebase.storage();
+            const ref = storage.ref(path); 
+
+            ref.getDownloadURL().then((url) => {          
+                var video = document.createElement("video");
+                video.src=url; // 動的に生成した動画のURL
+                video.setAttribute("controls","");
+                document.body.appendChild(video);
+                document.body.appendChild(document.createElement("br"));
+            });
+        }
+
+        let projectname = "pj1"
+        let workname = "work1"
+
+        window.addEventListener('load', function(){  
+        
+            const storage = firebase.storage();
+            var ref_path = projectname + "/" + workname
+            console.log(ref_path)
+            const storageRef = storage.ref(); 
+            var listRef = storageRef.child(ref_path);
+
+            listRef.listAll().then((res) => {
+                res.prefixes.forEach((folderRef) => {
+                });
+                res.items.forEach((itemRef) => {
+                    console.log(itemRef)
+                    console.log(itemRef.fullPath)
+                    if (judgementVideo(itemRef.fullPath) == true){
+                        console.log('true')
+                        createVideo(itemRef.fullPath);
+                    }
+                    else{console.log('false')}
+                });
+            }).catch((error) => {
+            console.error(error);
+            });
+        });
+
+    </script>
+    </body>
+</html>

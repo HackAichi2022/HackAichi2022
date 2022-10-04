@@ -1,0 +1,304 @@
+.bg_pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    z-index: -1;
+  }
+  .Paper_v2 {
+    background-image:
+      repeating-linear-gradient(to bottom,
+        transparent 25px,
+        rgba(0, 0, 0, 0.04) 26px,  rgba(0, 0, 0, 0.04) 26px,
+        transparent 27px,  transparent 51px, 
+        rgba(0, 0, 0, 0.04) 52px,  rgba(0, 0, 0, 0.04) 52px,
+        transparent 53px,  transparent 77px, 
+        rgba(0, 0, 0, 0.04) 78px,  rgba(0, 0, 0, 0.04) 78px,
+        transparent 79px,  transparent 103px, 
+        rgba(0, 0, 0, 0.04) 104px,  rgba(0, 0, 0, 0.04) 104px,
+        transparent 105px,  transparent 129px, 
+        rgba(0, 0, 0, 0.04) 130px,  rgba(0, 0, 0, 0.04) 130px),
+  
+      repeating-linear-gradient(to right,
+        transparent 25px,
+        rgba(0, 0, 0, 0.04) 26px,  rgba(0, 0, 0, 0.04) 26px,
+        transparent 27px,  transparent 51px, 
+        rgba(0, 0, 0, 0.04) 52px,  rgba(0, 0, 0, 0.04) 52px,
+        transparent 53px,  transparent 77px, 
+        rgba(0, 0, 0, 0.04) 78px,  rgba(0, 0, 0, 0.04) 78px,
+        transparent 79px,  transparent 103px, 
+        rgba(0, 0, 0, 0.04) 104px,  rgba(0, 0, 0, 0.04) 104px,
+        transparent 105px,  transparent 129px, 
+        rgba(0, 0, 0, 0.04) 130px,  rgba(0, 0, 0, 0.04) 130px);
+  }
+  
+  /*=============
+  base
+  ==============*/
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  /*.section {
+    max-width: 1024x;
+    margin: 0 auto;
+    padding: 100px 20px 1000px;
+  }*/
+  ._a {
+    max-width: 300px;
+    margin: 0 auto;  
+  }
+  ._a a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2.0em 1.0em;
+    border: 1px solid #222222;
+    background: linear-gradient(to right, #ffffff 50%, #222222 50%);
+    background-size: 200% auto;
+    color: #222222;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    transition: .3s;
+    position: relative;
+  }
+  ._a a:after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid #222222;
+    border-bottom: 1px solid #222222;
+  }
+  ._a a:hover {
+    color: #ffffff;
+    background-position: -100% 0;
+  }
+
+
+h1 {
+    font-family: 'MV Boli', sans-serif ;
+    color: #2b2b2b;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    }
+h1 span {
+    display: block;
+    margin: 11px 0 17px 0;
+    font-size: 80px;
+    line-height: 80px;
+    color: #6c6397;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+    letter-spacing: -4px;
+  }
+  
+body {
+    background-color: #ece5da;
+    text-align: center;
+    }
+
+.hr1 {
+	position: relative;
+	height: 5px;
+	border-width: 0;
+	background-image: -webkit-linear-gradient(left,
+	transparent 0%,#283593 50%,transparent 100%);
+	background-image:         linear-gradient(90deg,
+	transparent 0%,#283593 50%,transparent 100%);
+}
+
+/*本文の設定*/
+body {
+    font-family: "Helvetica Neue",
+      Arial,
+      "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans",
+      Meiryo,
+      sans-serif;
+      font-weight: bolder;
+  }
+
+/*文の設定*/
+p#p1{
+  position: relative;
+  padding: 0.25em 1em;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+p#p1:before, p#p1:after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  width: 2px;
+  height: -webkit-calc(100% + 14px);
+  height: calc(100% + 14px);
+  background-color: black;
+}
+p#p1:before {
+  left: 7px;
+}
+p#p1:after {
+  right: 7px;
+}
+
+p#p2 {
+    position: relative;/*相対位置*/
+    padding: 0.5em 0.5em 0.5em 1.5em;/*アイコン分のスペース*/
+    line-height: 1.4;/*行高*/
+    color: #157c8e;/*文字色*/
+    border-top: dotted 1px gray;
+    border-bottom: dotted 1px gray;
+    background: #fffff4;
+  }
+  
+p#p2:before {
+    font-family: "Font Awesome 5 Free";/*忘れずに*/
+    content: "\f138";/*アイコンのユニコード*/
+    position: absolute;/*絶対位置*/
+    font-size: 1em;/*サイズ*/
+    left: 0.25em;/*アイコンの位置*/
+    top: 0.5em;/*アイコンの位置*/
+    color: #161068; /*アイコン色*/
+}
+
+
+div#make_pro {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px 30px; /* 余白 */
+}
+
+/*プロジェクトごとのボタン*/
+  /*
+  .make_pro_button a {
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1em 2em;
+    width: 350px;
+    height: 200px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #cccccc;
+    box-shadow: 10px 10px 0 #cc9ea6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    background: #f7f7f7;
+    border-left: solid 30px #ff7c5c;
+    color: #ff7c5c;
+    border-radius: 15px 0 0 4px;
+    }
+  
+  .make_pro_button a:hover {
+    text-decoration: none;
+  background-color: #a0c4d3;
+  box-shadow: 0 0 0;
+  }*/
+
+.pic-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 600px;
+  height: 338px;
+  padding: 0px 5rem;
+  box-sizing: border-box;
+  background-color: rgb(254, 254, 254);
+}
+
+.make_pro_button a {
+  width: 250px;
+  height: 200px;
+  position: relative;
+  padding: 1rem;
+  box-shadow: 10px 10px #715c47;
+  background-image: linear-gradient(135deg, transparent 10px, #efefef 10px);
+  color: #212121;
+  font-weight: bold;
+  font-size: 26px;
+  overflow: hidden;
+}
+
+.make_pro_button a::before {
+  position: absolute;
+  content: '';
+  top: 0px;
+  left: 0px;
+  border-width: 15px 15px 0px 0px;
+  border-style: solid;
+  border-color: transparent #715c47 transparent;
+  box-shadow: 0 0 5px #000;
+}
+.make_pro_button a:hover {
+  text-decoration: none;
+background-color: #90bdd16e;
+box-shadow: 0 0 0;
+}
+
+
+
+  form{
+    background:#333333;
+    width:700px;
+    padding:20px 40px;
+  }
+  form div{
+    padding: 10px 20px;
+  }
+  h2{
+    text-align:center;
+    font-family: 'Fredoka One', cursive;
+    font-size:40px;
+    color:#fff;
+  }
+  .submit {
+    border:none;
+    color:#fff;
+    display:block;
+    margin:0 200px;
+    text-align:center;
+    background:#0E79EA;
+    padding:7px 70px;
+    border-radius: 17px;
+    cursor: pointer;
+    /* Webkit */
+    -webkit-border-radius: 17px;
+    -webkit-box-shadow: 2px 3px 2px #000;
+    /* Firefox */
+    -moz-border-radius: 17px;
+    -moz-box-shadow: 2px 3px 2px #000;
+  }
+  label {
+    display:block;
+    float:left;
+    width:200px;
+    color:#fff;
+  }
+  .text, textarea, .dropdown{
+    border:0px ;
+    padding: 8px;
+    color: #000;
+    background: #F5F5F5;
+    border-radius: 6px;
+    /* Webkit */
+    -webkit-box-shadow: 2px 3px 2px #000;
+    /* Firefox */
+    -moz-box-shadow: 2px 3px 2px #000;
+  }
+  .make_p{
+    /*コレ*/width: fit-content;
+    /*コレ*/margin: auto;
+}

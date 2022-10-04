@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- firebase.js -->
+    <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+    <script
+      defer
+      src="/__/firebase/9.10.0/firebase-database-compat.js"
+    ></script>
+    <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <!-- jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script defer src="./js/utility.js"></script>
+    <script defer src="registration.js"></script>
+    <script defer src="delete.js"></script>
+    <!-- 動画 -->
+    <script defer src="auto_video.js"></script>
+    <script defer src="pdf_view.js"></script>
+    <!-- JS -->
+    <!-- <script defer src="./video.js"></script>
+    <script defer src="./videoContent.js"></script>
+    <script defer src="./qa.js"></script> -->
+
+    <!-- <style>
+      #canvas_container {
+        /** pdf表示画面のCSS この辺りはカスタマイズしてください。 */
+        height: 100%;
+        overflow: auto;
+        background: #333;
+        text-align: center;
+        border: solid 3px;
+      }
+    </style> -->
+
+    <!-- CSS -->
+    <!-- <link type="text/css" rel="stylesheet" href="video.css">
+     <link type="text/css" rel="stylesheet" href="videoContent.css"> -->
+    <link type="text/css" rel="stylesheet" href="qa.css" />
+  </head>
+  <body>
+    <h1>作業マニュアルページ</h1>
+    <!-- 登録 -->
+    動画ファイル，pdfファイルの送信<br />
+    <input type="file" id="send" multiple required />
+
+    <button onclick="OnButtonClick()">送信する</button><br /><br />
+
+    <!-- 削除 -->
+    資料の削除<br /><br />
+    <div>
+      <form name="form1" id="contentsList"></form>
+    </div>
+
+    <button onclick="OnDeleteClick()">削除する</button><br /><br />
+
+    <!-- pdf -->
+    <div id="pdf_viewer">
+      <!-- <div id="canvas_container">
+            
+        </div> -->
+    </div>
+
+    
+  </body>
+</html>
