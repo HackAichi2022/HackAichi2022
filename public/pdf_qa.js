@@ -206,3 +206,31 @@ $(function(){
 //         if(dataQA[i].Q == text[0].id) v.currentTime = dataQA[i].videotime;
 //     }
 // });
+
+
+/*PDF*/
+window.addEventListener('load', function(){
+    let page_num = 2;
+    let option = document.querySelectorAll("#page option");  //全ての選択肢
+    let inputpage = document.getElementById('page');
+
+    //選択肢削除
+    Array.from(option).forEach( elm =>{
+        elm.remove();
+    });
+
+    for(var i = 1;  i <= page_num; i++){
+        let value = "p" + i
+        addSelect(value,value,value,inputpage)
+    }
+ });
+
+ //選択肢の追加処理
+function addSelect(id,value,text,ele){
+    const option = document.createElement('option');
+    option.id = id;
+    option.value = value;
+    option.textContent = text;
+    ele.appendChild(option);
+}
+/*------------------------------------------------ */
