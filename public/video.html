@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- http://localhost:50000/video.html?projectName=PJ1&workName=work1&videoPath=sample1.mp4&videoID=sample1 -->
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>of us</title>
@@ -22,7 +23,7 @@
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
   <!-- JS -->
-  <script defer src="./video_js/utility_test.js"></script>
+  <script defer src="./js/utility.js"></script>
   <script defer src="./video_js/video.js"></script>
   <script defer src="./video_js/videoContent.js"></script>
   <script defer src="./video_js/qa.js"></script>
@@ -47,32 +48,29 @@
     <div class="video-work-container">
       <div class="v-work-controls controls-wrapper">
         <h1 id="v-work-title">動画作業一覧</h1>
-        <input type="button" value="動画作業登録" id="add-video-work-button" class="button" onclick="v_addWorkBtnFunc()">
+        <input type="button" value="動画作業登録" id="add-video-work-button" class="button">
         <!--削除選択，削除ボタン-->
         <select name="v-work-delete" id="v-work-delete">
         </select>
         <input type="button" value="delete" id="v-work-delete-button" class="button" onclick="v_deleteBtnFunc()">
       </div>
       <dialog id="favDialog">
-         <form method="dialog">
-            <p><label>作業名:
-               <input type= "text" id= "v-name1">
-            </label></p>
-           
-            <p><label>動画内容:
-               <textarea id="v-content1" placeholder="こちらに作業内容を入力してください"></textarea>
+        <form method="dialog">
+          <p><label>作業名:
+              <input type="text" id="v-name1">
             </label></p>
 
-            <menu>
-               <input type= "button" value= "登録" onclick= "v_registerBtnFunc()">
-               <button>終了</button>
-            </menu>
-         </form>
+          <p><label>動画内容:
+              <textarea id="v-content1" placeholder="こちらに作業内容を入力してください"></textarea>
+            </label></p>
+
+          <menu>
+            <input type="button" value="登録" onclick="v_registerBtnFunc()">
+            <button>終了</button>
+          </menu>
+        </form>
       </dialog>
 
-      <menu>
-         <input type= "button" value= "動画作業登録" id= "add-video-work-button">
-      </menu>
       <div id="v-work-field">
         <ul id="v-work-ul" style="display: flex;flex-direction: column"></ul>
       </div>
@@ -109,7 +107,7 @@
       <input type="text" id="chat-input">
       <input type="button" value="Send" id="chat-button" class="button" onclick="sendBtnFunc()">
 
-    <!--削除選択，削除ボタン-->
+      <!--削除選択，削除ボタン-->
       <select name="chat-d  elete" id="chat-delete">
       </select>
 
