@@ -17,3 +17,13 @@ function queryElements(elem, query) {
 
   return elems
 }
+
+function isEmpty(obj) {
+  // nullにtypeofを使うと'object'が返されるので除外しておく
+  if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).length === 0
+  } else {
+    console.error('"obj" is not object.')
+    return false
+  }
+}

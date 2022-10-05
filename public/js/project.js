@@ -10,25 +10,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const workListElem = document.getElementById('work-list')
     let workListContent = ''
     getChildData(`${projectName}/workList`).then((workList) => {
-      if (workList.length === 0) {
+      // プロジェクトまたは作業が存在しなければ空のオブジェクトが返ってくる
+      if (isEmpty(workList)) {
         workListContent +=
-          `<li class="mdc-list-item">
-            <button class=mdc-button>
-              <span class="mdc-button__ripple"></span>
-              <span class="mdc-button__text">登録されている作業はありません</span>
-            </button>
-          </li>`
+          `<a href="#">登録されている作業はありません</a>`
       } else {
         // keyとvalueを取得してforで回す
         for (const [workName, workInfo] of Object.entries(workList)) {
           workListContent +=
-            `<li class="mdc-list-item" data-tag="${workInfo.tag}">
-              <button id="${workName}" class=mdc-button onclick="location.href='http://localhost:50000/work.html?projectName=${projectName}&workName=${workName}'">
-                <span class="mdc-button__ripple"></span>
-                <span class="mdc-button__text">${workName}, ${workInfo.tag}</span>
-              </button>
-            </li>`
-
+            `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}</a>
+          `
         }
       }
       workListElem.insertAdjacentHTML(
@@ -41,10 +32,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tagListElem = document.getElementById('tag-list')
     let tagListContent = ''
     getChildData(`${projectName}/tag`).then((data) => {
-      data.forEach((tag) => {
-        tagListContent += `${tag},`
-      })
-      tagListElem.textContent = tagListContent
+      if (typeof (data) === Array) {
+        data.forEach((tag) => {
+          tagListContent += `${tag},`
+        })
+        tagListElem.textContent = tagListContent
+
+      }
     })
   }
 
