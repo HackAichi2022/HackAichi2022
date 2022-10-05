@@ -53,21 +53,29 @@
         </select>
         <input type="button" value="delete" id="v-work-delete-button" class="button" onclick="v_deleteBtnFunc()">
       </div>
+      <dialog id="favDialog">
+         <form method="dialog">
+            <p><label>作業名:
+               <input type= "text" id= "v-name1">
+            </label></p>
+           
+            <p><label>動画内容:
+               <textarea id="v-content1" placeholder="こちらに作業内容を入力してください"></textarea>
+            </label></p>
+
+            <menu>
+               <input type= "button" value= "登録" onclick= "v_registerBtnFunc()">
+               <button>終了</button>
+            </menu>
+         </form>
+      </dialog>
+
+      <menu>
+         <input type= "button" value= "動画作業登録" id= "add-video-work-button">
+      </menu>
       <div id="v-work-field">
         <ul id="v-work-ul" style="display: flex;flex-direction: column"></ul>
       </div>
-    </div>
-
-    <div id="input-work-field" style="z-index:-1000">
-      <h3 id="v-name-title">作業名</h3>
-      <input type="text" id="v-name">
-      <h3 id="v-time-title">動画時間</h3>
-      <input type="text" id="v-time">
-      <h3 id="v-content-title">作業内容</h3>
-      <textarea id="v-content" placeholder="こちらに作業内容を入力してください"></textarea>
-      <input type="button" value="登録" id="v-register-button" onclick="v_registerBtnFunc()">
-      <input type="button" value="キャンセル" id="v-cancel-button" onclick="v_cancelBtnFunc()">
-      <input type="button" value="クリア" id="v-cls-button" onclick="v_clsBtnFunc()">
     </div>
 
     <div class="qa-container">
