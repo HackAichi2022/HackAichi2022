@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- http://localhost:5000/video.html?projectName=PJ1&workName=work1&videoPath=sample1.mp4&videoID=sample1 -->
+<!-- http://localhost:50000/video.html?projectName=PJ1&workName=work1&videoPath=sample1.mp4&videoID=sample1 -->
 <html lang="ja">
    <head>
       <meta charset="UTF-8">
@@ -22,7 +22,7 @@
       <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
       <!-- JS -->
-      <script defer src="./video_js/utility_test.js"></script>
+      <script defer src="./js/utility.js"></script>
       <script defer src="./video_js/video.js"></script>
       <script defer src="./video_js/videoContent.js"></script>
       <script defer src="./video_js/qa.js"></script>
@@ -95,8 +95,8 @@
       <input type= "text" id= "chat-input">
       <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
 
-      <!--削除選択，削除ボタン-->
-      <select name="chat-delete" id="chat-delete">
+    <!--削除選択，削除ボタン-->
+      <select name="chat-d  elete" id="chat-delete">
       </select>
 
       <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
