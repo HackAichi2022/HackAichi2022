@@ -61,6 +61,7 @@ ref.getDownloadURL()
         // PDFの読み込み
         pdfjsLib.getDocument(url).promise.then((pdf) => {
             state.pdf = pdf;
+            createSelectPage(state.pdf._pdfInfo.numPages);
             render();
         });
         

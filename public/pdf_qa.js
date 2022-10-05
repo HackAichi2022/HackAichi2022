@@ -16,12 +16,12 @@ function output(val, person, page) {
     //テキストを表示
     if(person == "Q"){
         let li = viewQ(sendTime,page,val,"Q"+ Q_num);
-        dataQA[Q_num]={Q:li.id, A:[],state:"add",sendtime:sendTime,page:page,content:val}
+        dataQA[Q_num]={Q:li.id, A:[],state:"add",sendtime:sendTime, page:page, content:val}
         dataQA[Q_num].A.push({ans:"回答内容",sendtime:"送信時間",page:"ページ番号"})
         Q_num+=1;
     } else{
         viewAns(person,sendTime,page,val)
-        dataQA[person.replace("Q","")].A.push({ans:val,sendtime:sendTime,page:page})
+        dataQA[person.replace("Q","")].A.push({ans:val, sendtime:sendTime, page:page})
     };
 }
 
@@ -35,7 +35,8 @@ function viewQ(sendTime,page,val,id){
     li.classList.add('left');
     li.id = id;
     console.log("page: "+page)
-    li.value = page.replace("p","");
+    li.value = page
+    console.log(li.value)
     li.style="display:list-item block;"
     ul.appendChild(li);
     div.innerHTML = "[" + id + "]    Send: "+ sendTime + "    /pege: " + page + "<br>  " + val;
@@ -159,7 +160,7 @@ function getDatabaseQA() {
                             for(var j = 1; j < dataQA[i].A.length; j++){        
                                 const field = document.getElementById('field');
                                 field.scroll(0, field.scrollHeight - field.clientHeight);
-                                viewAns(dataQA[i].Q,dataQA[i].A[j].sendtime,dataQA[i].A[j].priority,dataQA[i].A[j].ans);
+                                viewAns(dataQA[i].Q, dataQA[i].A[j].sendtime, dataQA[i].A[j].page, dataQA[i].A[j].ans);
                             }
                         }
                     }
@@ -172,12 +173,13 @@ function getDatabaseQA() {
         console.error(error);
     });
 }
+// function viewAns(person,sendTime,page,val){
 
 function roadQuestions(roadQ){
     const field = document.getElementById('field');
     field.scroll(0, field.scrollHeight - field.clientHeight);
     var sendTime = roadQ.sendtime
-    viewQ(sendTime,roadQ.priority,roadQ.content,roadQ.Q);
+    viewQ(sendTime,roadQ.page,roadQ.content,roadQ.Q);
 }
 /*-------------------------------------------------------------------------------------------------------*/
 
@@ -199,18 +201,9 @@ $(function(){
 });
 
 
-// $('#chat-ul').on('click', 'li', function () {
-//     var text = $(this)
-//     var v = document.getElementById("video1");
-//     for(let i=0; i <dataQA.length;i++){
-//         if(dataQA[i].Q == text[0].id) v.currentTime = dataQA[i].videotime;
-//     }
-// });
-
-
 /*PDF*/
-window.addEventListener('load', function(){
-    let page_num = 2;
+function createSelectPage(page_num){
+    // let page_num = state.pdf._pdfInfo.numPages;
     let option = document.querySelectorAll("#page option");  //全ての選択肢
     let inputpage = document.getElementById('page');
 
@@ -220,10 +213,10 @@ window.addEventListener('load', function(){
     });
 
     for(var i = 1;  i <= page_num; i++){
-        let value = "p" + i
+        let value = i
         addSelect(value,value,value,inputpage)
     }
- });
+ }
 
  //選択肢の追加処理
 function addSelect(id,value,text,ele){
@@ -234,3 +227,32 @@ function addSelect(id,value,text,ele){
     ele.appendChild(option);
 }
 /*------------------------------------------------ */
+
+
+function sortQA(){
+    const value = document.getElementById("chat-sort").value;   //選択した変更IDを取得(sort_T or sort_Q)
+    let li = document.querySelectorAll("#chat-ul li");          // 要素の取得
+
+    //質問の数および内容を取得
+    var order =[]
+    for(var i = 0; i < li.length; i++){
+        if(li[i].value != null) order.push({id:li[i].id,time:li[i].value,order:li[i].id.replace("Q","")});
+    }
+
+    // video time順に質問をソート
+    if(value == "sort_P"){         //動画時間順にソート       
+        Array.from(li).forEach( elm =>{
+            if(elm.className == "left")
+                for(var i = 0; i < order.length; i++){
+                    if(order[i].id == elm.id){
+                        elm.style.order=elm.value;
+                        break;
+                    }
+                }
+        });
+    }else if(value == "sort_Q"){   //質問順にソート  
+        Array.from(li).forEach( elm =>{ 
+            if(elm.className == "left") elm.style.order=elm.id.replace("Q","");
+        });
+    } 
+}
