@@ -18,8 +18,13 @@ const button_pre = document.getElementById("go_previous");
 const button_next = document.getElementById("go_next");
 button_pre.disabled = true
 
+// ページ数表示
+var x = document.getElementById("pagenum");
+
+
 // PDFをレンダリングするファンクション
 function render() {
+    x.innerHTML = state.currentPage;
     if (state.pdf == null || 1 == state.pdf._pdfInfo.numPages) {
         button_pre.disabled = true
         button_next.disabled = true
@@ -111,4 +116,6 @@ ref.getDownloadURL()
         link.setAttribute('download', filename);
        
     });
-document.body.appendChild(document.createElement("br"));
+    
+
+// document.body.appendChild(document.createElement("br"));
