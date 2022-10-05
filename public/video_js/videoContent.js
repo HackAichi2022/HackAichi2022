@@ -5,39 +5,44 @@ window.addEventListener('load', function(){
     getDatabaseVC();
  });
 
-function v_addWorkBtnFunc(){
-    document.getElementById('input-work-field').style.zIndex  = 1000;
-    var videoTimeEle = document.getElementById("video1");
-    var videoTime = videoTimeEle.currentTime;
-    let v_time = document.getElementById('v-time');
-    v_time.value = videoTime.toPrecision(3);
-}
+
+var updateButton = document.getElementById('add-video-work-button');
+var favDialog = document.getElementById('favDialog');
+updateButton.addEventListener('click', function onOpen() {
+  if (typeof favDialog.showModal === "function") {
+    favDialog.showModal();
+  } else {
+    alert("The <dialog> API is not supported by this browser");
+  }
+});
+
+
+favDialog.addEventListener('close', function onClose() {
+    let v_name = document.getElementById('v-name1');
+    let v_content = document.getElementById('v-content1');
+
+    //入力ボックスの入力文字削除 
+    setTimeout( ()=> {
+        v_name.value = '';
+        v_content.value = '';
+    }, 1);
+});
 
 function v_registerBtnFunc(){
-    // const field = document.getElementById('input-work-field');
-    // field.scroll(0, field.scrollHeight - field.clientHeight);
-    field.style.zIndex  = -1000;
-
-    let v_name = document.getElementById('v-name');
-    let v_time = document.getElementById('v-time');
-    let v_content = document.getElementById('v-content');
+    let v_name = document.getElementById('v-name1');
+    let v_content = document.getElementById('v-content1');
     var videoTimeEle = document.getElementById("video1");
     var videoTime = videoTimeEle.currentTime;
 
-    //入力文字がなかったら反映しない
-    if (!v_name.value) return false;    //作業名
-    if (!v_time.value) {                //動画時間
-        v_time.value = videoTime.toPrecision(3)
+    //入力文字がなかったら反映しない(作業名)
+    if (!v_name.value) {
+        alert('作業名を記入してください　登録不可能')
+        return false;    
     }
-    // else{
-    // /* 例外処理　入力形式が間違っていた場合の処理*/
-    // }
-
-    console.log(v_time.value)
     if (!v_content.value) {
-        dataVtask[Vtask_ID] = {id:Vtask_ID, titol:v_name.value, time:v_time.value, content:null, state:"add"}
+        dataVtask[Vtask_ID] = {id:Vtask_ID, titol:v_name.value, time:videoTime, content:null, state:"add"}
     }else{
-        dataVtask[Vtask_ID] = {id:Vtask_ID, titol:v_name.value, time:v_time.value, content: v_content.value, state:"add"}
+        dataVtask[Vtask_ID] = {id:Vtask_ID, titol:v_name.value, time:videoTime, content: v_content.value, state:"add"}
     }
 
     roadVC(dataVtask[Vtask_ID]);
@@ -47,20 +52,6 @@ function v_registerBtnFunc(){
     setDatabaseVC(); //保存
 }
 
-function v_cancelBtnFunc(){
-    document.getElementById('input-work-field').style.zIndex  = -1000;
-}
-
-function v_clsBtnFunc(){
-    let v_name = document.getElementById('v-name');
-    let v_content = document.getElementById('v-content');
-
-    //入力ボックスの入力文字削除 
-    setTimeout( ()=> {
-        v_name.value = '';
-        v_content.value = '';
-    }, 1);
-}
 
 //テキスト部分をクリックすると，テキスト送信時の動画時間に変更される
 $(function(){
@@ -71,7 +62,6 @@ $('#v-work-ul').on('click', 'li', function () {
     v.currentTime = text[0].id;
 });
 });
-
 
 function v_deleteBtnFunc(){
     let v_deletet = document.getElementById("v-work-delete");
@@ -93,10 +83,7 @@ function v_deleteBtnFunc(){
 }
 
 
-
-
-
-
+/*データベース　保存部分の処理*/
 function setDatabaseVC() {
     const projectname = getQueryParam('projectName');
     const workname = getQueryParam('workName');
@@ -106,7 +93,7 @@ function setDatabaseVC() {
     });
 }
 
-/*呼出部分の処理*/
+/*データベース　呼出部分の処理*/
 function getDatabaseVC() {
     const projectname = getQueryParam('projectName');
     const workname = getQueryParam('workName');
@@ -135,8 +122,6 @@ function getDatabaseVC() {
 }
 
 function roadVC(roadVC){
-    const field = document.getElementById('input-work-field');
-    field.scroll(0, field.scrollHeight - field.clientHeight);
     const li = document.createElement('li');    //<li>の作成
     li.style="display:list-item block;"
     li.id =  roadVC.time;
@@ -144,7 +129,10 @@ function roadVC(roadVC){
     let ul = document.getElementById('v-work-ul');  
     ul.appendChild(li);
     const div = document.createElement('div');
-    div.innerHTML = "<strong>[ 作業" + roadVC.id + " ]" + roadVC.titol + "</strong> _動画時間: " + roadVC.time ;
+    var v_time = roadVC.time
+    // console.log(v_time)
+    // console.log(v_time.toFixed(2))
+    div.innerHTML = "<strong>[ 作業" + roadVC.id + " ]" + roadVC.titol + "</strong> _動画時間: " + v_time;
     if (roadVC.content != null) div.innerHTML = div.innerHTML + "_内容: " + roadVC.content;
     li.appendChild(div);   
 }
