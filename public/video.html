@@ -1,70 +1,82 @@
 <!DOCTYPE html>
-<!-- http://localhost:5000/video.html?projectName=PJ1&workName=work1&videoPath=sample1.mp4&videoID=sample1 -->
+<!-- http://localhost:50000/video.html?projectName=PJ1&workName=work1&videoPath=sample1.mp4&videoID=sample1 -->
 <html lang="ja">
-   <head>
-      <meta charset="UTF-8">
-      <title>of us</title>
 
-      <!-- firebase.js -->
-      <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
-      <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
-      <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>of us</title>
 
-      <!-- Q&A用　-->
-      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <!-- firebase.js -->
+  <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-performance-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-      <!-- JS -->
-      <script defer src="./video_js/utility_test.js"></script>
-      <script defer src="./video_js/video.js"></script>
-      <script defer src="./video_js/videoContent.js"></script>
-      <script defer src="./video_js/qa.js"></script>
-      
+  <!-- Q&A用　-->
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
-      <!-- CSS -->
-      <link type="text/css" rel="stylesheet" href="./video_js/video.css">
-      <link type="text/css" rel="stylesheet" href="./video_js/videoContent.css">
-      <link type="text/css" rel="stylesheet" href="./video_js/qa.css">
-   </head>
-   <body>
-      <!--video.js 動画表示-------------------------------------------------------------------->
-      <!-- 動画設置 -->
-      <video id="video1" class="video1" controls></video>
-      <div id= "video1-field" style="z-index:-999"></div>
+  <!-- JS -->
+  <script defer src="./js/utility.js"></script>
+  <script defer src="./video_js/video.js"></script>
+  <script defer src="./video_js/videoContent.js"></script>
+  <script defer src="./video_js/qa.js"></script>
 
-      <!--videoContent.js---------------------------------------------------------------------->  
-      <h1 id="v-work-title">動画作業一覧</h1>
-      
-      <div id= "v-work-field">
-         <ul id= "v-work-ul" style="display: flex;flex-direction: column"></ul>
+
+  <!-- CSS -->
+  <!-- <link type="text/css" rel="stylesheet" href="./video_js/video.css"> -->
+  <link type="text/css" rel="stylesheet" href="./video_js/videoContent.css">
+  <link type="text/css" rel="stylesheet" href="./video_js/qa.css">
+  <link rel="stylesheet" href="./css/video.css">
+</head>
+
+<body>
+  <div class="bg_pattern Paper_v2"></div>
+  <div class="wrapper">
+
+    <!--video.js 動画表示-------------------------------------------------------------------->
+    <!-- 動画設置 -->
+    <video id="video1" class="video1 video-container" controls></video>
+
+    <!--videoContent.js---------------------------------------------------------------------->
+    <div class="video-work-container">
+      <div class="v-work-controls controls-wrapper">
+        <h1 id="v-work-title">動画作業一覧</h1>
+        <input type="button" value="動画作業登録" id="add-video-work-button" class="button">
+        <!--削除選択，削除ボタン-->
+        <select name="v-work-delete" id="v-work-delete">
+        </select>
+        <input type="button" value="delete" id="v-work-delete-button" class="button" onclick="v_deleteBtnFunc()">
       </div>
+      <dialog id="favDialog">
+        <form method="dialog">
+          <p><label>作業名:
+              <input type="text" id="v-name1">
+            </label></p>
 
-      <input type= "button" value= "動画作業登録" id= "add-video-work-button" onclick= "v_addWorkBtnFunc()">
+          <p><label>動画内容:
+              <textarea id="v-content1" placeholder="こちらに作業内容を入力してください"></textarea>
+            </label></p>
 
-      <div id= "input-work-field" style="z-index:-1000">
-         <h3 id="v-name-title">作業名</h3>
-         <input type= "text" id= "v-name">
-         <h3 id="v-time-title">動画時間</h3>
-         <input type= "text" id= "v-time">
-         <h3 id="v-content-title">作業内容</h3>
-         <textarea id="v-content" placeholder="こちらに作業内容を入力してください"></textarea>
-         <input type= "button" value= "登録" id= "v-register-button" onclick= "v_registerBtnFunc()">
-         <input type= "button" value= "キャンセル" id= "v-cancel-button" onclick= "v_cancelBtnFunc()">
-         <input type= "button" value= "クリア" id= "v-cls-button" onclick= "v_clsBtnFunc()">
+          <menu>
+            <input type="button" value="登録" onclick="v_registerBtnFunc()">
+            <button>終了</button>
+          </menu>
+        </form>
+      </dialog>
+
+      <div id="v-work-field">
+        <ul id="v-work-ul" style="display: flex;flex-direction: column"></ul>
       </div>
+    </div>
 
-      <!--削除選択，削除ボタン-->
-      <select name="v-work-delete" id="v-work-delete">
-      </select>
-      
-      <input type= "button" value= "delete" id= "v-work-delete-button" onclick= "v_deleteBtnFunc()">
+    <div class="qa-container">
 
       <!--qa.js--------------------------------------------------------------------------------------->
       <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
@@ -72,37 +84,38 @@
 
       <!--表示のソート-->
       <select name="chat-sort" id="chat-sort" onchange="sortQA()">
-         <option value="sort_Q">質問順</option>
-         <option value="sort_T">時間順</option>
+        <option value="sort_Q">質問順</option>
+        <option value="sort_T">時間順</option>
       </select>
 
       <!--画面-->
-      <div id= "field">
-         <ul id= "chat-ul" style="display: flex;flex-direction: column"></ul>
+      <div id="field">
+        <ul id="chat-ul" style="display: flex;flex-direction: column"></ul>
       </div>
 
       <!--入力場所，送信ボタン-->
       <select name="chat-tag" id="chat-tag">
-         <option value="Q">質問</option>
+        <option value="Q">質問</option>
       </select>
 
-      <select name="chat-priority" id="chat-priority">    
-         <option value="普通">普通</option>
-         <option value="重要">重要</option>
-         <option value="緊急">緊急</option>
+      <select name="chat-priority" id="chat-priority">
+        <option value="普通">普通</option>
+        <option value="重要">重要</option>
+        <option value="緊急">緊急</option>
       </select>
 
-      <input type= "text" id= "chat-input">
-      <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
+      <input type="text" id="chat-input">
+      <input type="button" value="Send" id="chat-button" class="button" onclick="sendBtnFunc()">
 
       <!--削除選択，削除ボタン-->
-      <select name="chat-delete" id="chat-delete">
+      <select name="chat-d  elete" id="chat-delete">
       </select>
 
-      <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
+      <input type="button" value="delete" id="chat-delete-button" class="button" onclick="deleteBtnFunc()">
       <!-------------------------------------------------------------------------------------->
 
-   </body>
+    </div>
+  </div>
+</body>
+
 </html>
-
-

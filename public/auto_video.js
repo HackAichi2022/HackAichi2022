@@ -8,19 +8,19 @@ function judgementVideo(fileName) {
     return false
 }
 
-function createVideo(path, name ,i) {
-    var id=name.slice( 0, -4 );
+function createVideo(path, name, i) {
+    var id = name.slice(0, -4);
     console.log(name);
     // var obj = document.getElementById("link");
-    var tag=document.createElement('a');
-    tag.setAttribute('href','http://localhost:50000/video.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&videoID='+id);
+    var tag = document.createElement('a');
+    tag.setAttribute('href', 'http://localhost:50000/video.html?projectName=' + projectname + '&workName=' + workname + '&videoPath=' + path + '&videoID=' + id);
     tag.appendChild(document.createTextNode(name));
-    // obj.appendChild(tag);
-    document.body.appendChild(tag);
-    document.body.appendChild(document.createElement("br"));
+
+    const fileLinkList = document.getElementById('file-link-list');
+    fileLinkList.appendChild(tag);
 
 
-    
+
     // const storage = firebase.storage();
     // const ref = storage.ref(path);
 
@@ -54,7 +54,7 @@ window.addEventListener('load', function () {
             console.log(itemRef.fullPath)
             if (judgementVideo(itemRef.fullPath) == true) {
                 console.log('true')
-                createVideo(itemRef.fullPath,itemRef.name, i);
+                createVideo(itemRef.fullPath, itemRef.name, i);
                 i += 1;
             }
             else { console.log('false') }

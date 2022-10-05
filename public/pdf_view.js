@@ -8,14 +8,14 @@ function judgementPdf(fileName) {
 
 function createPdf(path, name) {
     console.log(name);
-    var id=name.slice( 0, -4 );
+    var id = name.slice(0, -4);
     // var obj = document.getElementById("link");
-    var tag=document.createElement('a');
-    tag.setAttribute('href','http://localhost:50000/pdf.html?projectName='+projectname+'&workName='+workname+'&videoPath='+path+'&ID='+id);
+    var tag = document.createElement('a');
+    tag.setAttribute('href', 'http://localhost:50000/pdf.html?projectName=' + projectname + '&workName=' + workname + '&pdfPath=' + path + '&pdfID=' + id);
     tag.appendChild(document.createTextNode(name));
     // obj.appendChild(tag);
-    document.body.appendChild(tag);
-    document.body.appendChild(document.createElement("br"));
+    const fileLinkList = document.getElementById('file-link-list');
+    fileLinkList.appendChild(tag);
 
     // // var div = document.createElement('div');
     // // div.setAttribute('id',"canvas_container"+path);

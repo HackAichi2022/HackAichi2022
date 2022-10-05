@@ -44,29 +44,33 @@ function OnDeleteClick() {
 
     console.log(chklist);
     if (chklist.length === undefined) {
-        if (chklist.checked) {
-            var deleteRef = storageRef.child(ref_path + '/' + chklist.value);
-            console.log(deleteRef);
-            deleteRef.delete().then(() => {
-                console.log('Deleted a file!');
-                alert("次のファイルを削除しました\n" + chklist.value);
-            }).catch((error) => {
-                console.error(error)
-            });
-        }
-    }
-    else {
-        for (let i = 0; i < chklist.length; i++) {
-            if (chklist[i].checked) {
-                var deleteRef = storageRef.child(ref_path + '/' + chklist[i].value);
+        if (window.confirm("ファイルを削除しますか？")) {
+            if (chklist.checked) {
+                var deleteRef = storageRef.child(ref_path + '/' + chklist.value);
                 console.log(deleteRef);
                 deleteRef.delete().then(() => {
                     console.log('Deleted a file!');
-                    alert("次のファイルを削除しました\n" + chklist[i].value);
+                    location.reload();
                 }).catch((error) => {
                     console.error(error)
                 });
-                // arr.push(chklist[i].value);
+            }
+        }
+    }
+    else {
+        if (window.confirm("ファイルを削除しますか？")) {
+            for (let i = 0; i < chklist.length; i++) {
+                if (chklist[i].checked) {
+                    var deleteRef = storageRef.child(ref_path + '/' + chklist[i].value);
+                    console.log(deleteRef);
+                    deleteRef.delete().then(() => {
+                        console.log('Deleted a file!');
+                        location.reload();
+                    }).catch((error) => {
+                        console.error(error)
+                    });
+                    // arr.push(chklist[i].value);
+                }
             }
         }
     }

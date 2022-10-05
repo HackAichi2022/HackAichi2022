@@ -18,7 +18,8 @@ let workname = getQueryParam('workName')
             ref.put(file).then((snapshot) => {
             // ref.put(file.,metadata).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
-                alert("次のファイルをアップロードしました\n" + file.name);
+                // alert("次のファイルをアップロードしました\n" + file.name);
+                location.reload();
             }).catch((error) =>{
                 console.error(error)
             });

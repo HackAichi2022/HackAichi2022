@@ -1,0 +1,157 @@
+.bg_pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    z-index: -1;
+}
+
+.Paper_v2 {
+    background-image:
+        repeating-linear-gradient(to bottom,
+            transparent 25px,
+            rgba(0, 0, 0, 0.04) 26px, rgba(0, 0, 0, 0.04) 26px,
+            transparent 27px, transparent 51px,
+            rgba(0, 0, 0, 0.04) 52px, rgba(0, 0, 0, 0.04) 52px,
+            transparent 53px, transparent 77px,
+            rgba(0, 0, 0, 0.04) 78px, rgba(0, 0, 0, 0.04) 78px,
+            transparent 79px, transparent 103px,
+            rgba(0, 0, 0, 0.04) 104px, rgba(0, 0, 0, 0.04) 104px,
+            transparent 105px, transparent 129px,
+            rgba(0, 0, 0, 0.04) 130px, rgba(0, 0, 0, 0.04) 130px),
+
+        repeating-linear-gradient(to right,
+            transparent 25px,
+            rgba(0, 0, 0, 0.04) 26px, rgba(0, 0, 0, 0.04) 26px,
+            transparent 27px, transparent 51px,
+            rgba(0, 0, 0, 0.04) 52px, rgba(0, 0, 0, 0.04) 52px,
+            transparent 53px, transparent 77px,
+            rgba(0, 0, 0, 0.04) 78px, rgba(0, 0, 0, 0.04) 78px,
+            transparent 79px, transparent 103px,
+            rgba(0, 0, 0, 0.04) 104px, rgba(0, 0, 0, 0.04) 104px,
+            transparent 105px, transparent 129px,
+            rgba(0, 0, 0, 0.04) 130px, rgba(0, 0, 0, 0.04) 130px);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue",
+        Arial,
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        Meiryo,
+        sans-serif;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.container {
+    width: fit-content;
+    text-align: left;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #333333;
+    padding: 20px 40px;
+}
+
+h1 {
+    font-family: 'MV Boli', sans-serif;
+    color: #2b2b2b;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    display: block;
+    margin: 11px 0 17px 0;
+    font-size: 80px;
+    line-height: 80px;
+    color: #6c6397;
+    text-shadow: 0 13.36px 8.896px #c4b59d, 0 -2px 1px #fff;
+    letter-spacing: -4px;
+}
+
+.hr1 {
+    position: relative;
+    height: 5px;
+    border-width: 0;
+    background-image: -webkit-linear-gradient(left,
+            transparent 0%, #283593 50%, transparent 100%);
+    background-image: linear-gradient(90deg,
+            transparent 0%, #283593 50%, transparent 100%);
+}
+
+div#file-link-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+}
+
+#file-link-list a {
+    width: 250px;
+    height: 200px;
+    position: relative;
+    padding: 1rem;
+    box-shadow: 10px 10px #715c47;
+    background-image: linear-gradient(135deg, transparent 10px, #efefef 10px);
+    color: #212121;
+    font-weight: bold;
+    font-size: 26px;
+    overflow: hidden;
+}
+
+#file-link-list a::before {
+    position: absolute;
+    content: '';
+    top: 0px;
+    left: 0px;
+    border-width: 15px 15px 0px 0px;
+    border-style: solid;
+    border-color: transparent #715c47 transparent;
+    box-shadow: 0 0 5px #000;
+}
+
+#file-link-list a:hover {
+    text-decoration: none;
+    background-color: #90bdd16e;
+    box-shadow: 0 0 0;
+}
+
+
+h2 {
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 40px;
+    color: #fff;
+}
+
+.submit {
+    border: none;
+    color: #fff;
+    display: block;
+    margin: 0 200px;
+    text-align: center;
+    background: #0E79EA;
+    padding: 7px 70px;
+    border-radius: 17px;
+    cursor: pointer;
+    /* Webkit */
+    -webkit-border-radius: 17px;
+    -webkit-box-shadow: 2px 3px 2px #000;
+    /* Firefox */
+    -moz-border-radius: 17px;
+    -moz-box-shadow: 2px 3px 2px #000;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 200px;
+    color: #fff;
+}
