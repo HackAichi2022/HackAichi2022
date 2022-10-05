@@ -173,7 +173,6 @@ function getDatabaseQA() {
         console.error(error);
     });
 }
-// function viewAns(person,sendTime,page,val){
 
 function roadQuestions(roadQ){
     const field = document.getElementById('field');
