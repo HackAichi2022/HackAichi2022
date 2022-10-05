@@ -11,7 +11,7 @@ function createPdf(path, name) {
     var id = name.slice(0, -4);
     // var obj = document.getElementById("link");
     var tag = document.createElement('a');
-    tag.setAttribute('href', 'http://localhost:50000/pdf.html?projectName=' + projectname + '&workName=' + workname + '&videoPath=' + path + '&ID=' + id);
+    tag.setAttribute('href', 'http://localhost:50000/pdf.html?projectName=' + projectname + '&workName=' + workname + '&pdfPath=' + path + '&pdfID=' + id);
     tag.appendChild(document.createTextNode(name));
     // obj.appendChild(tag);
     const fileLinkList = document.getElementById('file-link-list');

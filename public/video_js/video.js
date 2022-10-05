@@ -19,23 +19,27 @@ function getVideo(){
 
 var video=document.getElementById('video1');
 video.addEventListener('timeupdate', function() {
-    console.log(video.currentTime)
+    //console.log(video.currentTime)
 
     // QAのスクロール部分
     const field = document.getElementById('field');
     if(video.currentTime < 0.3)  field.scrollTo(0, 0);
-    let count = 0
+    let count = null
     let li = document.querySelectorAll("#chat-ul li");
     Array.from(li).forEach( elm =>{
         if(elm.className == "left" && elm.state != "delete"){
-            if(count == 0){
-                var rect = elm.getBoundingClientRect();
-                count = rect.top;
-            }
+            Array.from(li).forEach( elm2 =>{
+                var rect = elm2.getBoundingClientRect();   
+                if(count == null){
+                    count = rect.top;
+                }else if(count > rect.top){
+                    count = rect.top;
+                }
+            });
+
             //elm.value/10000の「10000」は， qa.js の41行目（li.value = videoTime.toFixed(4) * 10000）の「10000」と統一する必要あり
-            if(Math.abs(elm.value/10000 - video.currentTime) < 0.15){
+            if(Math.abs(elm.value/10000 - video.currentTime) < 0.2){
                 var rect = elm.getBoundingClientRect();
-                //console.log(rect.top)
                 field.scrollTo(0, rect.top - count);
             }
         }
