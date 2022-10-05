@@ -190,6 +190,8 @@ $(function(){
         for(let i=0; i <dataQA.length;i++){
             if(dataQA[i].Q == text[0].id) {
                 console.log(text[0].value)
+                state.currentPage = text[0].value;
+                render();
             }
         }
 
