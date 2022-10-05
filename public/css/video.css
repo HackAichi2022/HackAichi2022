@@ -58,10 +58,8 @@ body {
     /* margin分を除いて広げられるだけ広げる */
     width: calc(100% - 10px * 2);
     height: calc(100% - 10px * 2);
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    grid-column: 1/3;
+    grid-row: 1/3;
 }
 
 .video-work-container {
@@ -69,37 +67,39 @@ body {
     /* margin分を除いて広げられるだけ広げる */
     width: calc(100% - 10px * 2);
     height: calc(100% - 10px * 2);
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-column: 1/3;
+    grid-row: 3/4;
 }
 
 .controls-wrapper {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    justify-items: center;
-    align-items: center;
 }
 .controls-wrapper > #v-work-title {
-    grid-column-start: 1;
-    grid-column-end: 2;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 0px;
+    align-self: end;
+    grid-column: 1/2;
 }
 .controls-wrapper > #add-video-work-button {
-    justify-self: start;
-    grid-column-start: 2;
-    grid-column-end: 3;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-self: end;
+    grid-column: 2/3;
 }
 .controls-wrapper > #v-work-delete {
+    margin-left: 5px;
+    margin-right: 5px;
     height: 30px;
-    justify-self: end;
-    grid-column-start: 5;
-    grid-column-end: 6;
+    align-self: end;
+    grid-column: 5/6;
 }
 .controls-wrapper > #v-work-delete-button {
-    justify-self: start;
-    grid-column-start: 6;
-    grid-column-end: 7;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-self: end;
+    grid-column: 6/7;
 }
 #v-work-field {
     box-sizing: border-box;
