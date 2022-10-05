@@ -25,6 +25,11 @@
     <script defer src="./js/utility.js"></script>
     <script defer src="pdf_static.js"></script>
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script defer src="./pdf_qa.js"></script>
+          
+    
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="./video_js/qa.css">
 
 
     <style>
@@ -40,6 +45,7 @@
 </head>
 
 <body>
+    <!--pdf読み込み--------------------------------------------------------------------------------------->
     <div id="pdf_viewer">
         <div id="canvas_container">
             <canvas id="pdf_renderer"></canvas>
@@ -53,6 +59,39 @@
             <a href="" id="download" download="sample.pdf"><button>ダウンロード</button></a>
         </div>
     </div>
+    
+
+     <!--pdf_qa.js--------------------------------------------------------------------------------------->
+      <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
+      <h1 id="QA-title">質問＆回答</h1>
+
+      <!--画面-->
+      <div id= "field">
+         <ul id= "chat-ul" style="display: flex;flex-direction: column"></ul>
+      </div>
+
+      <!--入力場所，送信ボタン-->
+      <select name="chat-tag" id="chat-tag">
+         <option value="Q">質問</option>
+      </select>
+
+      <select name="page" id="page">    
+         <option value="p1">p1</option>
+         <option value="p2">p2</option>
+         <option value="p3">p3</option>
+      </select>
+
+      <input type= "text" id= "chat-input">
+      <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
+
+      <!--削除選択，削除ボタン-->
+      <select name="chat-delete" id="chat-delete">
+      </select>
+
+      <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
+      <!-------------------------------------------------------------------------------------->
 </body>
+
+
 
 </html>
