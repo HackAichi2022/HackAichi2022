@@ -39,6 +39,15 @@ h1 {
     grid-row: 1/2;
 }
 
+#page {
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-self: end;
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
 /* 削除選択，削除ボタン */
 #chat-delete {
     height: 30px;

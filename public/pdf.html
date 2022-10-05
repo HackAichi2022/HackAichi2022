@@ -26,75 +26,70 @@
     <script defer src="pdf_static.js"></script>
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
     <script defer src="./pdf_qa.js"></script>
-          
-    
+
+
     <!-- CSS -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/pdf.css">
     <link type="text/css" rel="stylesheet" href="./video_js/qa.css">
-
-
-    <style>
-        #canvas_container {
-            /** pdf表示画面のCSS この辺りはカスタマイズしてください。 */
-            height: 100%;
-            overflow: auto;
-            background: #333;
-            text-align: center;
-            border: solid 3px;
-        }
-    </style>
 </head>
 
 <body>
-    <!--pdf読み込み--------------------------------------------------------------------------------------->
-    <div id="pdf_viewer">
-        <div id="canvas_container">
-            <canvas id="pdf_renderer"></canvas>
+    <div class="bg_pattern Paper_v2"></div>
+    <div class="wrapper">
+        <!--pdf読み込み--------------------------------------------------------------------------------------->
+        <div id="pdf_viewer" class="pdf-container">
+            <div id="canvas_container">
+                <canvas id="pdf_renderer"></canvas>
+            </div>
+            <div id="navigation_controls">
+                <button id="go_previous" class="button">前のページ</button>
+                <span id="pagenum" style="border: 1px solid #000000bd"></span>
+                <button id="go_next" class="button">次のページ</button>
+                <button id="zoom_in" class="button">拡大</button>
+                <button id="zoom_out" class="button">縮小</button>
+                <a href="" id="download" download="sample.pdf"><button class="button">ダウンロード</button></a>
+                <span id="pagenum"></span>
+            </div>
         </div>
-        <div id="navigation_controls">
-            <button id="go_previous">前のページ</button>
-            <span id="pagenum" style="border: 1px solid #000000bd"></span>
-            <button id="go_next">次のページ</button>
-            <button id="zoom_in">拡大</button>
-            <button id="zoom_out">縮小</button>
-            <a href="" id="download" download="sample.pdf"><button>ダウンロード</button></a>
-            <span id="pagenum"></span>
+
+
+        <div class="qa-container">
+            <!--pdf_qa.js--------------------------------------------------------------------------------------->
+            <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
+            <h1 id="QA-title">質問＆回答</h1>
+
+            <!--画面-->
+            <div id="field">
+                <ul id="chat-ul" style="display: flex;flex-direction: column"></ul>
+            </div>
+
+            <!--入力場所，送信ボタン-->
+            <select name="chat-tag" id="chat-tag">
+                <option value="Q">質問</option>
+            </select>
+
+            <select name="page" id="page">
+            </select>
+
+            <input type="text" id="chat-input">
+            <input type="button" value="Send" id="chat-button" class="button" onclick="sendBtnFunc()">
+
+            <!--削除選択，削除ボタン-->
+            <select name="chat-delete" id="chat-delete">
+            </select>
+
+            <input type="button" value="delete" id="chat-delete-button" class="button" onclick="deleteBtnFunc()">
+
+
+            <!--表示のソート-->
+            <select name="chat-sort" id="chat-sort" onchange="sortQA()">
+                <option value="sort_Q">質問順</option>
+                <option value="sort_P">ページ順</option>
+            </select>
+            <!-------------------------------------------------------------------------------------->
         </div>
     </div>
-    
-
-     <!--pdf_qa.js--------------------------------------------------------------------------------------->
-    <!--参考: https://qiita.com/masa_mf3/items/305c29b98eca47b0ab82 -->
-    <h1 id="QA-title">質問＆回答</h1>
-
-    <!--画面-->
-    <div id= "field">
-        <ul id= "chat-ul" style="display: flex;flex-direction: column"></ul>
-    </div>
-
-    <!--入力場所，送信ボタン-->
-    <select name="chat-tag" id="chat-tag">
-        <option value="Q">質問</option>
-    </select>
-
-    <select name="page" id="page">    
-    </select>
-
-    <input type= "text" id= "chat-input">
-    <input type= "button" value= "Send" id= "chat-button" onclick= "sendBtnFunc()">
-
-    <!--削除選択，削除ボタン-->
-    <select name="chat-delete" id="chat-delete">
-    </select>
-
-    <input type= "button" value= "delete" id= "chat-delete-button" onclick= "deleteBtnFunc()">
-
-
-    <!--表示のソート-->
-    <select name="chat-sort" id="chat-sort" onchange="sortQA()">
-        <option value="sort_Q">質問順</option>
-        <option value="sort_P">ページ順</option>
-    </select>
-      <!-------------------------------------------------------------------------------------->
 </body>
 
 
