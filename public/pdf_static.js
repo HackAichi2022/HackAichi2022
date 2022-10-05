@@ -20,6 +20,11 @@ button_pre.disabled = true
 
 // PDFをレンダリングするファンクション
 function render() {
+    if (state.pdf == null || 1 == state.pdf._pdfInfo.numPages) {
+        button_pre.disabled = true
+        button_next.disabled = true
+    }
+    else{
     if (state.pdf == null || state.currentPage == 1) {
         button_pre.disabled = true
         button_next.disabled = false
@@ -28,6 +33,8 @@ function render() {
         button_next.disabled = true
         button_pre.disabled = false
     }
+    }
+    
     state.pdf.getPage(state.currentPage).then(function (page) {
         var canvas = document.getElementById("pdf_renderer");
         var ctx = canvas.getContext('2d');
@@ -62,16 +69,16 @@ ref.getDownloadURL()
             .addEventListener('click', (e) => {
                 console.log(state.currentPage);
                 state.currentPage -= 1;
-                button_next.disabled = false
                 render();
+                button_next.disabled = false
             });
         // 次のPDFページを表示
         document.getElementById('go_next')
             .addEventListener('click', (e) => {
                 console.log(state.currentPage);
                 state.currentPage += 1;
-                button_pre.disabled = false
                 render();
+                button_pre.disabled = false
             });
         // PDFのズームイン（拡大）
         document.getElementById('zoom_in').addEventListener('click', (e) => {
