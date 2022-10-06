@@ -257,6 +257,16 @@ function flag_QA(){
 }
 
 
+function flag_Q_all(){
+    let all = 0
+    if(dataQA != null){
+        for(var i = 0; i < dataQA.length; i++){
+                all = all + 1;
+        }
+    }
+    return all
+}
+
 function flag_QA_update(){
 
     const projectname = getQueryParam('projectName');
@@ -270,8 +280,7 @@ function flag_QA_update(){
         }
 
         
-        flag = flag + flag_QA() - send_flag;
-        send_flag = flag_QA();
+        flag = flag - flag_Q_all() + flag_QA();
         firebase.database().ref(projectname+"/workList/"+workname).update({
             flag_qa: flag
         });

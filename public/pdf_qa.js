@@ -1,6 +1,7 @@
 let dataQA= []  //送信するQAデータを格納
 let Q_num = 0;  //質問の数（番号）
-let send_flag = 0
+let 
+ = 0
 
 window.addEventListener('load', function(){
     getDatabaseQA();
@@ -278,6 +279,16 @@ function flag_QA(){
     return flag
 }
 
+function flag_Q_all(){
+    let all = 0
+    if(dataQA != null){
+        for(var i = 0; i < dataQA.length; i++){
+                all = all + 1;
+        }
+    }
+    return all
+}
+
 
 function flag_QA_update(){
 
@@ -290,9 +301,8 @@ function flag_QA_update(){
             let data = snapshot.val()
             if(data.flag_qa != null) flag = data.flag_qa;
         }
-
-        
-        flag = flag + flag_QA() - send_flag;
+   
+        flag = flag - flag_Q_all() + flag_QA();
         send_flag = flag_QA();
         firebase.database().ref(projectname+"/workList/"+workname).update({
             flag_qa: flag
