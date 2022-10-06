@@ -2,27 +2,8 @@
 let s_name = [];
 const path = "/";
 var num_tag = 1;
-/*
-async function get_project_name(){
-  const ref = firebase.database().ref(path)
-  const snapshot = await ref.get()
-  if (snapshot.exists()) {
-    s_name = Object.keys(snapshot.val())
-  }
-  return 0
-}
-
-async function call_project_name(){
-  await get_project_name();
-  console.log(s_name);
-}
-
-
-window.onload = () => {
-call_project_name();
-console.log(s_name);
-}
-*/
+const make_max_tag = 8
+const max_tag = 3
 
 /*DBを参照してボタンを製作*/
 async function getChildKeys(path) {
@@ -34,21 +15,17 @@ async function getChildKeys(path) {
     keys = Object.keys(snapshot.val())
   }
   console.log(keys)
-  /*
-  for (var i = 0; i < keys.length; i++) { 
-    var pro = document.createElement('li'); 
-    pro.textContent = keys[i];
-    document.getElementById('list').appendChild(pro); 
-  }*/
 
   const workListElem = document.getElementById('make_pro');
 
   keys.forEach((key) => {
     const projectRef = firebase.database().ref(`${path}/${key}/tag`)
     projectRef.get().then((snapshot) => {
+      tag_l = snapshot.val()
+      let key1 = tag_l[0]
       workListElem.insertAdjacentHTML(
         'beforeend',
-        `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'" data-tag="${snapshot.val()}">${key}<br></a>
+        `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'" data-tag="${snapshot.val()}"><font size="6" color="red">${key}</font><br><br><font size="2">${key1}</font></a>
       <p><br></p>`
       )
 
@@ -87,9 +64,12 @@ document.getElementById("make_project_button").onclick = async function () {
       let tag_name = tag_id.value;
       tag_list.push(tag_name)
     }
+    let Sum = document.getElementById('Summary').value;
+    let Par = document.getElementById('Participant').value;
+    let ClCu = document.getElementById('Client_Customer').value;
     //let tag_arr = {}
     //tag_arr.tag = tag_list;
-    const data = { [Project_name]: { tag: tag_list } }
+    const data = { [Project_name]: { tag: tag_list , Summary_inp: Sum, Participant_inp: Par, ClCu_inp: ClCu } }
     ref.update(data);
     window.location.reload();
   }
@@ -97,13 +77,17 @@ document.getElementById("make_project_button").onclick = async function () {
 
 
 function addForm() {
-  var input_data = document.createElement('input');
-  input_data.type = 'text';
-  input_data.id = 'inputform_' + num_tag;
-  input_data.placeholder = '#';
-  var parent = document.getElementById('form_area');
-  parent.appendChild(input_data);
-  num_tag++;
+  if (num_tag < make_max_tag){
+    var input_data = document.createElement('input');
+    input_data.type = 'text';
+    input_data.id = 'inputform_' + num_tag;
+    input_data.placeholder = '#';
+    var parent = document.getElementById('form_area');
+    parent.appendChild(input_data);
+    num_tag++;
+  } else{
+    alert('this project name is existing!')
+  }
 }
 
 document.getElementById('search-button').addEventListener('click', () => {
