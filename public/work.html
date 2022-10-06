@@ -49,11 +49,14 @@
   <!-- 登録 -->
   <div class="container">
     <h2>Submit Video or PDF</h2>
+    <span id="file-select-state">選択されていません</span>
     <div>
-      <label for="file-select">File Select</label>
-      <input name="file-select" type="file" id="send" multiple required />
+      <label id="file-select-label" class="submit" for="send">
+        File Select
+        <input type="file" id="send" multiple required />
+      </label>
     </div>
-    <button type="button" class="submit" onclick="OnButtonClick()">
+    <button id="send-file-button" type="button" class="submit" onclick="OnButtonClick()">
       送信する
     </button>
   </div>
