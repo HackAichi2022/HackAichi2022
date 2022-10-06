@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `
               })
             }
-            workListContent += '</div></a>'
+            workListContent += `</div><font size="4" style="margin-top: 8px; margin-left: 8px;">未回答の質問：${workInfo.flag_qa}</font></a>`
           }
           console.log(workListContent)
         } else {
