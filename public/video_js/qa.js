@@ -1,5 +1,6 @@
 let dataQA= []  //送信するQAデータを格納
 let Q_num = 0;  //質問の数（番号）
+let send_flag = 0
 
 window.addEventListener('load', function(){
     getDatabaseQA();
@@ -19,12 +20,13 @@ function output(val, person, priority) {
     //テキストを表示
     if(person == "Q"){
         let li = viewQ(videoTime,sendTime,priority,val,"Q"+ Q_num);
-        dataQA[Q_num]={Q:li.id, A:[],state:"add",videotime:videoTime,sendtime:sendTime,priority:priority,content:val}
+        dataQA[Q_num]={Q:li.id, A:[],state:"add",videotime:videoTime,sendtime:sendTime,priority:priority,content:val,flag:1}
         dataQA[Q_num].A.push({ans:"回答内容",sendtime:"送信時間",priority:"状態"})
         Q_num+=1;
     } else{
         viewAns(person,sendTime,priority,val)
         dataQA[person.replace("Q","")].A.push({ans:val,sendtime:sendTime,priority:priority})
+        dataQA[person.replace("Q","")].flag = 0;
     };
 }
 
@@ -112,7 +114,9 @@ function deleteBtnFunc(){
 
         //データ格納先の状態を変更
         for(let i=0; i <dataQA.length;i++){
-            if(dataQA[i].Q == Q) dataQA[i].state ="delete";
+            if(dataQA[i].Q == Q) {
+                dataQA[i].state ="delete";
+            }
         }
         setDatabaseQA(); //保存
     }
@@ -185,9 +189,12 @@ function setDatabaseQA() {
     const projectname = getQueryParam('projectName');
     const workname = getQueryParam('workName');
     const videoid = getQueryParam('videoID');
+    let flag = flag_QA();
     firebase.database().ref(projectname+"/workList/"+workname+"/"+videoid+"/qaData").set({
-        qa: dataQA
+        qa: dataQA,
+        flag: flag
     });
+    flag_QA_update()
 }
 
 /*呼出部分の処理*/
@@ -235,3 +242,38 @@ function roadQuestions(roadQ){
     viewQ(videoTime,sendTime,roadQ.priority,roadQ.content,roadQ.Q);
 }
 /*-------------------------------------------------------------------------------------------------------*/
+
+
+function flag_QA(){
+    let flag = 0
+    if(dataQA != null){
+        for(var i = 0; i < dataQA.length; i++){
+            if(dataQA[i].flag == 1 && dataQA[i].state != "delete"){
+                flag = flag + 1;
+            }
+        }
+    }
+    return flag
+}
+
+
+function flag_QA_update(){
+
+    const projectname = getQueryParam('projectName');
+    const workname = getQueryParam('workName');
+    firebase.database().ref(projectname+"/workList/"+workname).get().then((snapshot) => {
+        let flag = 0
+
+        if (snapshot.exists()) {
+            let data = snapshot.val()
+            if(data.flag_qa != null) flag = data.flag_qa;
+        }
+
+        
+        flag = flag + flag_QA() - send_flag;
+        send_flag = flag_QA();
+        firebase.database().ref(projectname+"/workList/"+workname).update({
+            flag_qa: flag
+        });
+    });
+}
