@@ -3,41 +3,59 @@ document.addEventListener('DOMContentLoaded', async () => {
   const projectName = getQueryParam('projectName')
   if (projectName) {
     // ヘッダー部分はプロジェクト名に合わせる
-    const projectNameElem = document.getElementById('project-name')
-    projectNameElem.textContent = projectName
+    const projectTitleElem = document.getElementById('project-title')
+    projectTitleElem.textContent = projectName
 
-    // 作業一覧はリストとして表示
-    const workListElem = document.getElementById('work-list')
-    let workListContent = ''
-    getChildData(`${projectName}/workList`).then((workList) => {
-      // プロジェクトまたは作業が存在しなければ空のオブジェクトが返ってくる
-      if (isEmpty(workList)) {
-        workListContent +=
-          `<a href="#">登録されている作業はありません</a>`
-      } else {
-        // keyとvalueを取得してforで回す
-        for (const [workName, workInfo] of Object.entries(workList)) {
-          workListContent +=
-            `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}</a>
-          `
+    getChildData(`${projectName}`).then((project) => {
+      if (exists(project)) {
+        document.getElementById('Pname').value = projectName
+        document.getElementById('Summary').value = project.Summary_inp
+        document.getElementById('Participant').value = project.Participant_inp
+        document.getElementById('Client_Customer').value = project.ClCu_inp
+
+        const tagListElem = document.getElementById('project-tag-list')
+        let tagListContent = ''
+        const projectTags = project.tag
+        if (exists(projectTags)) {
+          projectTags.forEach((tag) => {
+            tagListContent +=
+              `
+              <span class="badge-item">${tag}</span>
+              `
+          })
         }
-      }
-      workListElem.insertAdjacentHTML(
-        'beforeend',
-        workListContent
-      )
-    })
+        tagListElem.innerHTML = tagListContent
 
-    // タグ一覧を表示
-    const tagListElem = document.getElementById('tag-list')
-    let tagListContent = ''
-    getChildData(`${projectName}/tag`).then((data) => {
-      if (typeof (data) === Array) {
-        data.forEach((tag) => {
-          tagListContent += `${tag},`
-        })
-        tagListElem.textContent = tagListContent
+        // 作業一覧のリンクを作成
+        const workList = project.workList
+        const workListElem = document.getElementById('work-list')
+        let workListContent = ''
+        // 作業一覧はオブジェクトなので存在しているか判定
+        if (exists(workList)) {
+          for (const [workName, workInfo] of Object.entries(workList)) {
+            workListContent +=
+              `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}<div class="badge-container">`
 
+            const tags = workInfo.tag
+            if (exists(tags)) {
+              tags.forEach((tag) => {
+                workListContent +=
+                  `
+                <span class="badge-item">${tag}</span>
+                `
+              })
+            }
+            workListContent += '</div></a>'
+          }
+          console.log(workListContent)
+        } else {
+          workListContent +=
+            `<a href="#">登録されている作業はありません</a>`
+        }
+        workListElem.insertAdjacentHTML('beforeend', workListContent)
+
+      } else {
+        console.error('Project does not exists')
       }
     })
   }
@@ -61,10 +79,10 @@ document.getElementById('add-work-button').addEventListener('click', () => {
 
 document.getElementById('search-work-button').addEventListener('click', () => {
   const tag = document.getElementById('search-tag').value
-  queryElements(document.getElementById('work-list'), `li:not([data-tag*=${tag}])`).forEach((elem) => {
+  queryElements(document.getElementById('work-list'), `a:not([data-tag*=${tag}])`).forEach((elem) => {
     elem.style.display = 'none'
   })
-  queryElements(document.getElementById('work-list'), `li[data-tag*=${tag}]`).forEach((elem) => {
+  queryElements(document.getElementById('work-list'), `a[data-tag*=${tag}]`).forEach((elem) => {
     elem.style.display = ''
   })
 })

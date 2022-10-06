@@ -1,11 +1,20 @@
 html {
     height: 100vh;
-    margin:0px;
+    margin: 0px;
 }
+
 body {
     height: 100%;
-    margin:0px;
+    margin: 0px;
+    font-family: "Helvetica Neue",
+        Arial,
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        Meiryo,
+        sans-serif;
+    font-weight: bolder;
 }
+
 .bg_pattern {
     position: fixed;
     top: 0;
@@ -58,4 +67,123 @@ body {
     /* Firefox */
     -moz-border-radius: 4px;
     -moz-box-shadow: 2px 3px 2px #000;
+}
+
+.hr1 {
+    position: relative;
+    height: 5px;
+    border-width: 0;
+    background-image: -webkit-linear-gradient(left,
+            transparent 0%, #283593 50%, transparent 100%);
+    background-image: linear-gradient(90deg,
+            transparent 0%, #283593 50%, transparent 100%);
+}
+
+div#work-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+}
+
+#work-list a {
+    width: 250px;
+    height: 200px;
+    position: relative;
+    padding: 1rem;
+    box-shadow: 10px 10px #715c47;
+    background-image: linear-gradient(135deg, transparent 10px, #efefef 10px);
+    color: #212121;
+    font-weight: bold;
+    font-size: 26px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+#work-list a::before {
+    position: absolute;
+    content: '';
+    top: 0px;
+    left: 0px;
+    border-width: 15px 15px 0px 0px;
+    border-style: solid;
+    border-color: transparent #715c47 transparent;
+    box-shadow: 0 0 5px #000;
+}
+
+#work-list a:hover {
+    text-decoration: none;
+    background-color: #90bdd16e;
+    box-shadow: 0 0 0;
+}
+
+
+.form-container {
+    background: #333333;
+    width: 700px;
+    max-width: 700px;
+    height: 500pt;
+    padding: 20px 40px;
+}
+
+h2.form-title {
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 40px;
+    color: #fff;
+}
+
+.form-label {
+    display: block;
+    float: left;
+    width: 200px;
+    color: #fff;
+}
+
+.form-input {
+    border: 0px;
+    padding: 8px;
+    color: #000;
+    background: #F5F5F5;
+    border-radius: 6px;
+    width: 400px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* Webkit */
+    -webkit-box-shadow: 2px 3px 2px #000;
+    /* Firefox */
+    -moz-box-shadow: 2px 3px 2px #000;
+}
+
+.form-content-row {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+textarea {
+    height: 4em;
+    width: 400px;
+}
+
+/* https://eclair.blog/make-badge-group-with-html-and-css/ */
+.badge-container {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.badge-item {
+    margin-top: 10px;
+    margin-left: 8px;
+    border-radius: 16px;
+    background: #a9a9a9;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .4);
+    padding: 8px 10px;
+    overflow: hidden;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
 }
