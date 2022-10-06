@@ -24,7 +24,7 @@ async function getChildKeys(path) {
       tag_l = snapshot.val()
 
       let htmlText =
-        `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'" data-tag="${snapshot.val()}">
+        `<a href="#" id="${key}" onclick="location.href='http://${location.host}/project.html?projectName=${key}'" data-tag="${snapshot.val()}">
           <font size="6" color="red">${key}</font>
           <br><br>
           <div class="badge-container">
@@ -65,6 +65,7 @@ window.onload = () => {
 document.getElementById("make_project_button").onclick = async function () {
   const ref = firebase.database().ref(path);
   const snapshot = await ref.get()
+  let keys = []
   if (snapshot.exists()) {
     keys = Object.keys(snapshot.val())
   }
@@ -72,7 +73,7 @@ document.getElementById("make_project_button").onclick = async function () {
   const textbox = document.getElementById("Pname");
   const Project_name = textbox.value;
 
-  if (keys.includes(Project_name)) {
+  if (Array.isArray(keys) && keys.includes(Project_name)) {
     alert('this project name is existing!')
   } else {
     //let data = { [Project_name]:{tag:[Project_name]} }
@@ -102,6 +103,7 @@ function addForm() {
     input_data.type = 'text';
     input_data.id = 'inputform_' + num_tag;
     input_data.placeholder = '#';
+    input_data.classList.add('text');
     var parent = document.getElementById('form_area');
     parent.appendChild(input_data);
     num_tag++;
@@ -113,10 +115,10 @@ function addForm() {
 document.getElementById('search-button').addEventListener('click', () => {
   const tag = document.getElementById('search-tag').value
   const projectList = document.getElementById('make_pro')
-  projectList.querySelectorAll(`a: not([data - tag*=${tag}])`).forEach((elem) => {
+  projectList.querySelectorAll(`a:not([data-tag*=${tag}])`).forEach((elem) => {
     elem.style.display = 'none'
   })
-  projectList.querySelectorAll(`a[data - tag*= ${tag}]`).forEach((elem) => {
+  projectList.querySelectorAll(`a[data-tag*= ${tag}]`).forEach((elem) => {
     elem.style.display = ''
   })
 })
