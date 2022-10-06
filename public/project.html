@@ -5,10 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link rel="stylesheet" href="./css/project.css">
-  <script defer src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <link rel="stylesheet" href="./css/base.css">
   <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
   <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
@@ -21,31 +18,34 @@
 <body>
   <div class="bg_pattern Paper_v2"></div>
   <header>
-    <h1 id="project-name">Project</h1>
+    <h1 id="project-name">プロジェクト</h1>
   </header>
   <hr class="hr1">
   <main>
     <div>
       <span id="tag-list"></span>
     </div>
-    <div>
-      <label for="search-tag">
-        タグの検索
-        <input name="search-tag" id="search-tag" type="text" />
-      </label>
-      <button id="search-work-button" class="button" type="button">
-        検索
-      </button>
-    </div>
-    <div>
-      <label for="work-name">
-        作業の追加
-        <input name="work-name" id="work-name" type="text" />
-      </label>
-      <button id="add-work-button" class="button" type="button">
-        追加
-      </button>
-    </div>
+    <form class="form-container">
+      <h2 id="project-title" class="form-title">Project</h2>
+      <div class="form-content-row">
+        <label class="form-label" for="search-tag">
+          Search by Tag
+        </label>
+        <input name="search-tag" id="search-tag" class="form-input" type="text" />
+        <button id="search-work-button" class="button" type="button">
+          Search
+        </button>
+      </div>
+      <div class="form-content-row">
+        <label class="form-label" for="work-name">
+          Add Work
+        </label>
+        <input name="work-name" id="work-name" class="form-input" type="text" />
+        <button id="add-work-button" class="button" type="button">
+          Add
+        </button>
+      </div>
+    </form>
 
     <div id="work-list" class="mdc-list"></div>
 
