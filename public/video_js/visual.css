@@ -1,0 +1,66 @@
+
+
+/*チャットのフィールド*/
+#field {
+    position: relative;
+    grid-column: 1/6;
+    grid-row: 2/3;
+    ;
+    width: calc(100% - 10px * 2);
+    height: calc(100% - 10px * 2);
+    margin: 10px;
+    padding: 7px 0 14px;
+    box-sizing: border-box;
+    background-color: #EEE;
+    background-color: #81AECF;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    border: 2px solid #071574;
+} 
+
+#field::-webkit-scrollbar {
+    display: none;
+}
+
+
+/*入力*/
+#chat-input:focus {
+    border:solid 1px #EEA34A;
+}
+
+
+
+/* 左右に二重線をつけた囲み枠 */
+#v-work-field {
+    margin: 1em auto;
+    background: #e8ecfd; /* 背景色 */
+    border-left: double 6px #54f0a4; /* 左線の色 */
+    border-right: double 6px #54f0a4; /* 右線の色 */
+    width: 95%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22); /* 影の色 */
+  }
+
+
+
+
+/*Dialog*/
+#favDialog {
+    border-radius: 0.6rem;
+    box-shadow: 0 0 1em black;
+}
+   
+#favDialog::backdrop {
+    /* 背景を半透明のブラックにする */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#favDialogBtn1{
+    display:inline-block;
+}
+
+
+#favDialogBtn2{
+    display:inline-block;
+}

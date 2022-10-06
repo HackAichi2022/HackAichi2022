@@ -22,6 +22,7 @@
   <!-- Q&A用　-->
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
+
   <!-- JS -->
   <script defer src="./js/utility.js"></script>
   <script defer src="./video_js/video.js"></script>
@@ -34,6 +35,7 @@
   <link type="text/css" rel="stylesheet" href="./video_js/videoContent.css">
   <link type="text/css" rel="stylesheet" href="./video_js/qa.css">
   <link rel="stylesheet" href="./css/video.css">
+  <link type="text/css" rel="stylesheet" href="./video_js/visual.css">
 </head>
 
 <body>
@@ -60,13 +62,15 @@
               <input type="text" id="v-name1">
             </label></p>
 
-          <p><label>動画内容:
-              <textarea id="v-content1" placeholder="こちらに作業内容を入力してください"></textarea>
-            </label></p>
+          <p><label>動画内容 </label></p>
+
+          <p><label>
+            <textarea id="v-content1"  cols="40" rows="6" placeholder="こちらに作業内容を入力してください"></textarea>
+          </label>
 
           <menu>
-            <input type="button" value="登録" onclick="v_registerBtnFunc()">
-            <button>終了</button>
+            <input type="button" class="button" id="favDialogBtn1" value="登録" onclick="v_registerBtnFunc()">
+            <input type="button" class="button" id="favDialogBtn2" value="終了" onclick="v_finishBtnFunc()">
           </menu>
         </form>
       </dialog>
