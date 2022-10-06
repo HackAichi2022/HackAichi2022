@@ -6,38 +6,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     const projectTitleElem = document.getElementById('project-title')
     projectTitleElem.textContent = projectName
 
-    // 作業一覧はリストとして表示
-    const workListElem = document.getElementById('work-list')
-    let workListContent = ''
-    getChildData(`${projectName}/workList`).then((workList) => {
-      // プロジェクトまたは作業が存在しなければ空のオブジェクトが返ってくる
-      if (isEmpty(workList)) {
-        workListContent +=
-          `<a href="#">登録されている作業はありません</a>`
-      } else {
-        // keyとvalueを取得してforで回す
-        for (const [workName, workInfo] of Object.entries(workList)) {
+    getChildData(`${projectName}`).then((project) => {
+      if (exists(project)) {
+        document.getElementById('Pname').value = projectName
+        document.getElementById('Summary').value = project.Summary_inp
+        document.getElementById('Participant').value = project.Participant_inp
+        document.getElementById('Client_Customer').value = project.ClCu_inp
+
+        // 作業一覧のリンクを作成
+        const workList = project.workList
+        const workListElem = document.getElementById('work-list')
+        let workListContent = ''
+        // 作業一覧はオブジェクトなので存在しているか判定
+        if (exists(workList)) {
+          for (const [workName, workInfo] of Object.entries(workList)) {
+            workListContent +=
+              `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}</a>`
+          }
+        } else {
           workListContent +=
-            `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}</a>
-          `
+            `<a href="#">登録されている作業はありません</a>`
         }
+        workListElem.insertAdjacentHTML('beforeend', workListContent)
+
+      } else {
+        console.error('Project does not exists')
       }
-      workListElem.insertAdjacentHTML(
-        'beforeend',
-        workListContent
-      )
     })
 
     // タグ一覧を表示
-    const tagListElem = document.getElementById('tag-list')
-    let tagListContent = ''
+    // const tagListElem = document.getElementById('tag-list')
+    // let tagListContent = ''
     getChildData(`${projectName}/tag`).then((data) => {
       if (typeof (data) === Array) {
         data.forEach((tag) => {
           tagListContent += `${tag},`
         })
         tagListElem.textContent = tagListContent
-
       }
     })
   }

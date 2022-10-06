@@ -18,10 +18,10 @@ function queryElements(elem, query) {
   return elems
 }
 
-function isEmpty(obj) {
+function exists(obj) {
   // nullにtypeofを使うと'object'が返されるので除外しておく
   if (obj !== null && typeof obj === 'object') {
-    return Object.keys(obj).length === 0
+    return Object.keys(obj).length !== 0
   } else {
     console.error('"obj" is not object.')
     return false
