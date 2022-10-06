@@ -13,6 +13,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('Participant').value = project.Participant_inp
         document.getElementById('Client_Customer').value = project.ClCu_inp
 
+        const tagListElem = document.getElementById('project-tag-list')
+        let tagListContent = ''
+        const projectTags = project.tag
+        if (exists(projectTags)) {
+          projectTags.forEach((tag) => {
+            tagListContent +=
+              `
+              <span class="badge-item">${tag}</span>
+              `
+          })
+        }
+        tagListElem.innerHTML = tagListContent
+
         // 作業一覧のリンクを作成
         const workList = project.workList
         const workListElem = document.getElementById('work-list')
@@ -21,8 +34,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (exists(workList)) {
           for (const [workName, workInfo] of Object.entries(workList)) {
             workListContent +=
-              `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}</a>`
+              `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}<div class="badge-container">`
+
+            const tags = workInfo.tag
+            if (exists(tags)) {
+              tags.forEach((tag) => {
+                workListContent +=
+                  `
+                <span class="badge-item">${tag}</span>
+                `
+              })
+            }
+            workListContent += '</div></a>'
           }
+          console.log(workListContent)
         } else {
           workListContent +=
             `<a href="#">登録されている作業はありません</a>`
@@ -31,18 +56,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       } else {
         console.error('Project does not exists')
-      }
-    })
-
-    // タグ一覧を表示
-    // const tagListElem = document.getElementById('tag-list')
-    // let tagListContent = ''
-    getChildData(`${projectName}/tag`).then((data) => {
-      if (typeof (data) === Array) {
-        data.forEach((tag) => {
-          tagListContent += `${tag},`
-        })
-        tagListElem.textContent = tagListContent
       }
     })
   }

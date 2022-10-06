@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/base.css">
+
   <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
   <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
@@ -22,14 +23,15 @@
   </header>
   <hr class="hr1">
   <main>
-    <div>
-      <span id="tag-list"></span>
-    </div>
     <form class="form-container">
       <h2 id="project-title" class="form-title">Project</h2>
       <div class="form-content-row">
         <label class="form-label">Project Name</label>
         <input type="text" class="form-input" id="Pname" size="45" value="" readonly />
+      </div>
+      <div id="" class="form-content-row">
+        <label class="form-label">Tags</label>
+        <div id="project-tag-list" class="badge-container"></div>
       </div>
       <div class="form-content-row">
         <label class="form-label">Summary</label>
