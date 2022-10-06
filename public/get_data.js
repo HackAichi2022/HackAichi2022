@@ -27,6 +27,7 @@ async function getChildKeys(path) {
         `<a href="#" id="${key}" onclick="location.href='http://localhost:50000/project.html?projectName=${key}'" data-tag="${snapshot.val()}">
           <font size="6" color="red">${key}</font>
           <br><br>
+          <div class="badge-container">
         `
 
       if (Array.isArray(tag_l) && tag_l.length > 0) {
@@ -36,14 +37,14 @@ async function getChildKeys(path) {
             break;
           }
           htmlText +=
-            `<span class="badge rounded-pill bg-secondary">
+            `<span class="badge-item">
               <font size="2">${tag_l[i]}</font>
             </span>`
         }
       }
 
       // 閉じタグを追加する
-      htmlText += `</a><p><br></p>`
+      htmlText += `</div></a><p><br></p>`
       workListElem.insertAdjacentHTML(
         'beforeend',
         htmlText
