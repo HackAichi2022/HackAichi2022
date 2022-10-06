@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const projectName = getQueryParam('projectName')
   if (projectName) {
     // ヘッダー部分はプロジェクト名に合わせる
-    const projectNameElem = document.getElementById('project-name')
-    projectNameElem.textContent = projectName
+    const projectTitleElem = document.getElementById('project-title')
+    projectTitleElem.textContent = projectName
 
     // 作業一覧はリストとして表示
     const workListElem = document.getElementById('work-list')
@@ -61,10 +61,10 @@ document.getElementById('add-work-button').addEventListener('click', () => {
 
 document.getElementById('search-work-button').addEventListener('click', () => {
   const tag = document.getElementById('search-tag').value
-  queryElements(document.getElementById('work-list'), `li:not([data-tag*=${tag}])`).forEach((elem) => {
+  queryElements(document.getElementById('work-list'), `a:not([data-tag*=${tag}])`).forEach((elem) => {
     elem.style.display = 'none'
   })
-  queryElements(document.getElementById('work-list'), `li[data-tag*=${tag}]`).forEach((elem) => {
+  queryElements(document.getElementById('work-list'), `a[data-tag*=${tag}]`).forEach((elem) => {
     elem.style.display = ''
   })
 })
