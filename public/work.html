@@ -11,7 +11,7 @@
   <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
   <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
   <script defer src="/__/firebase/9.10.0/firebase-storage-compat.js"></script>
-  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="/__/firebase/init.js"></script>
 
   <!-- jquery.js -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -49,9 +49,9 @@
   <!-- 登録 -->
   <div class="container">
     <h2>Submit Video or PDF</h2>
-    <span id="file-select-state">選択されていません</span>
+    <!-- <span id="file-select-state">選択されていません</span> -->
     <div>
-      <label id="file-select-label" class="submit" for="send">
+      <label id="file-select-label" for="send">
         File Select
         <input type="file" id="send" multiple required />
       </label>

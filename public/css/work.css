@@ -134,7 +134,7 @@ h2 {
 .submit {
     border: none;
     color: #fff;
-    /* display: block; */
+    display: block;
     margin: 0 200px;
     text-align: center;
     background: #0E79EA;
@@ -156,7 +156,7 @@ label {
     color: #fff;
 }
 
-input[type="file"] {
+/* input[type="file"] {
     display: none;
 }
 
@@ -168,4 +168,4 @@ span#file-select-state {
     float: center;
     color: #fff;
     margin-bottom: 10px;
-}
+} */
