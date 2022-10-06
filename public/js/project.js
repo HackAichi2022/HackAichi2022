@@ -48,13 +48,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             let question_num = 0
             for (const [key, value] of Object.entries(workInfo)) {
-              if (exists(value) && !Array.isArray(value) && !isNaN(value.qaData.flag)) {
+              if (exists(value) && !Array.isArray(value) && Object.hasOwn(value, 'qaData') && Object.hasOwn(value.qaData, 'flag')) {
                 question_num += value.qaData.flag
               }
             }
             workListContent += `</div><font size="4" style="margin-top: 8px; margin-left: 8px;">未回答の質問：${question_num}</font></a>`
           }
-          console.log(workListContent)
         } else {
           workListContent +=
             `<a href="#">登録されている作業はありません</a>`
