@@ -1,48 +1,38 @@
+let projectName;
+
 document.addEventListener('DOMContentLoaded', async () => {
   // プロジェクト名はクエリパラメータ経由で受け取る
-  const projectName = getQueryParam('projectName')
+  projectName = getQueryParam('projectName')
   if (projectName) {
     // ヘッダー部分はプロジェクト名に合わせる
-    const projectTitleElem = document.getElementById('project-title')
-    projectTitleElem.textContent = projectName
+    setHTMLElementValue('project-title', projectName)
 
     getChildData(`${projectName}`).then((project) => {
       if (exists(project)) {
-        document.getElementById('Pname').value = projectName
-        document.getElementById('Summary').value = project.Summary_inp
-        document.getElementById('Participant').value = project.Participant_inp
-        document.getElementById('Client_Customer').value = project.ClCu_inp
+        setHTMLElementValue('Pname', projectName)
+        setHTMLElementValue('Summary', project.Summary_inp)
+        setHTMLElementValue('Participant', project.Participant_inp)
+        setHTMLElementValue('Client_Customer', project.ClCu_inp)
 
-        const tagListElem = document.getElementById('project-tag-list')
-        let tagListContent = ''
+        // タグは配列で取得する
         const projectTags = project.tag
-        if (exists(projectTags)) {
+        if (Array.isArray(projectTags)) {
           projectTags.forEach((tag) => {
-            tagListContent +=
-              `
-              <span class="badge-item">${tag}</span>
-              `
+            setChildElement('project-tag-list', createHTMLElement({ tagName: 'span', className: 'badge-item', innerText: tag }))
           })
         }
-        tagListElem.innerHTML = tagListContent
 
         // 作業一覧のリンクを作成
         const workList = project.workList
-        const workListElem = document.getElementById('work-list')
-        let workListContent = ''
         // 作業一覧はオブジェクトなので存在しているか判定
         if (exists(workList)) {
           for (const [workName, workInfo] of Object.entries(workList)) {
-            workListContent +=
-              `<a href="http://${location.host}/work.html?projectName=${projectName}&workName=${workName}" id="${workName}" data-tag="${workInfo.tag}">${workName}<div class="badge-container">`
 
-            const tags = workInfo.tag
-            if (exists(tags)) {
-              tags.forEach((tag) => {
-                workListContent +=
-                  `
-                <span class="badge-item">${tag}</span>
-                `
+            const tagBadgeList = createHTMLElement({ tagName: 'div', className: 'badge-container' })
+            const workTags = workInfo.tag
+            if (Array.isArray(workTags)) {
+              workTags.forEach((tag) => {
+                tagBadgeList.appendChild(createHTMLElement({ tagName: 'span', className: 'badge-item', innerText: tag }))
               })
             }
 
@@ -52,43 +42,47 @@ document.addEventListener('DOMContentLoaded', async () => {
                 question_num += value.qaData.flag
               }
             }
-            workListContent += `</div><font size="4" style="margin-top: 8px; margin-left: 8px;">未回答の質問：${question_num}</font></a>`
+            const questionNum = createHTMLElement({ tagName: 'font', innerText: question_num, size: 4, style: 'margin-top: 8px; margin-left: 8px;' })
+
+            setChildElement('work-list', createHTMLElement({ tagName: 'a', id: workName, href: `work.html?projectName=${projectName}&workName=${workName}`, innerText: workName, dataset: new DOMStringMap({ tag: tags }), child: [tagBadgeList, questionNum] }))
           }
         } else {
-          workListContent +=
-            `<a href="#">登録されている作業はありません</a>`
+          setChildElement('work-list', createHTMLElement({
+            tagName: 'a', innerText: '作業はありません'
+          }))
         }
-        workListElem.insertAdjacentHTML('beforeend', workListContent)
-
       } else {
         console.error('Project does not exists')
       }
     })
   }
-
 })
 
 document.getElementById('add-work-button').addEventListener('click', () => {
-  const workName = document.getElementById('work-name').value
+  const workName = getHTMLElementValue('work-name')
+
+  // 空のデータは追加できないのでなにかしらのデータを入れておく必要がある
   const data = {
     [workName]: {
-      material: '',
-      movie: '',
+      tag: [projectName],
+      flag_qa: 0
     },
   }
 
-  const projectName = getQueryParam('projectName')
   if (projectName) {
     updateData(`${projectName}/workList`, data)
   }
 })
 
 document.getElementById('search-work-button').addEventListener('click', () => {
-  const tag = document.getElementById('search-tag').value
-  queryElements(document.getElementById('work-list'), `a:not([data-tag*=${tag}])`).forEach((elem) => {
+  const tag = getHTMLElementValue('search-tag')
+
+  // 作業名を表示している<a>を表示・非表示にして検索機能を実現
+  const workListElem = document.getElementById('work-list')
+  workListElem.querySelectorAll(`a:not([data-tag*="${tag}"])`).forEach((elem) => {
     elem.style.display = 'none'
   })
-  queryElements(document.getElementById('work-list'), `a[data-tag*=${tag}]`).forEach((elem) => {
+  workListElem.querySelectorAll(`a[data-tag*="${tag}"]`).forEach((elem) => {
     elem.style.display = ''
   })
 })
