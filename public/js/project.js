@@ -1,4 +1,4 @@
-let projectName;
+let projectName = '';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // プロジェクト名はクエリパラメータ経由で受け取る
@@ -44,17 +44,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             const questionNum = createHTMLElement({ tagName: 'font', innerText: question_num, size: 4, style: 'margin-top: 8px; margin-left: 8px;' })
 
-            setChildElement('work-list', createHTMLElement({ tagName: 'a', id: workName, href: `work.html?projectName=${projectName}&workName=${workName}`, innerText: workName, dataset: new DOMStringMap({ tag: tags }), child: [tagBadgeList, questionNum] }))
+            setChildElement('work-list', createHTMLElement({ tagName: 'a', id: workName, href: `work.html?projectName=${projectName}&workName=${workName}`, innerText: workName, dataset: new DOMStringMap({ tag: worktags }), child: [tagBadgeList, questionNum] }))
           }
         } else {
           setChildElement('work-list', createHTMLElement({
             tagName: 'a', innerText: '作業はありません'
           }))
         }
-      } else {
-        console.error('Project does not exists')
       }
     })
+  } else {
+    setHTMLElementValue('project-title', projectName)
+    console.error('Project does not exists')
   }
 })
 
